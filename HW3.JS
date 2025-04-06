@@ -209,7 +209,8 @@ function reviewInput() {
    output += '</table>';
    document.getElementById("review-output").innerHTML = output;
 }
-function Reset() {
+function Reset()
+ {
    console.log("Reset function triggered");
    alert("Reset function triggered");
    document.getElementById("signup-form").reset();
