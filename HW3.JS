@@ -228,12 +228,6 @@ function Reset() {
    document.getElementById("pword-error").innerHTML = "";
    document.getElementById("review-output").innerHTML = "";
 }
-<div id="alert-box">
-<div id="alert-content">
-   <h4>Please fill out all required fields or any other message you want</h4>
-   <button id="close-alert">OK</button>
-</div>
-</div>
 function validateEverything() {
    let valid = true;
 
