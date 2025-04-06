@@ -396,12 +396,22 @@ function validateTerms() {
    }
 }
 function showAlert() {
-   const alertBox = document.getElementById("alert-box");
-   alertBox.style.display = "block";
-   const closeButton = document.getElementById("close-alert");
-   closeButton.addEventListener("click", function() {
-       alertBox.style.display = "none";
-   });
+    const alertBox = document.getElementById("alert-box");
+    if (alertBox) {
+      // Show the custom alert box
+      alertBox.style.display = "block";
+      const closeButton = document.getElementById("close-alert");
+      // Remove previous event listeners to avoid multiple bindings
+      closeButton.replaceWith(closeButton.cloneNode(true));
+      document.getElementById("close-alert").addEventListener("click", function() {
+        alertBox.style.display = "none";
+      });
+    } else {
+      // Fallback to the default browser alert if the custom element is missing
+      alert("Please fill out all required fields.");
+    }
+  }
+  
 }
 
 
