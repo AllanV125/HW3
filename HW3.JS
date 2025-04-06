@@ -15,7 +15,8 @@ let slider = document.getElementById("range");
 let output = document.getElementById("range-slider"); 
 
 
-slider.oninput = function() {
+slider.oninput = function() 
+{
    output.innerHTML = this.value;
 };
 
@@ -23,7 +24,8 @@ slider.oninput = function() {
 function validateName() {
    return true;
 }
-function validateMiddleInitial() {
+function validateMiddleInitial()
+ {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
        document.getElementById("minitalError").innerHTML = "Middle initial cannot be blank";
@@ -43,7 +45,8 @@ function validateAddress() {
 }
 
 
-function validateDob() {
+function validateDob()
+{
    const dobInput = document.getElementById("DOB");
    const dob = new Date(dobInput.value);
    const today = new Date();
@@ -66,7 +69,8 @@ function validateDob() {
 }
 
 
-function validateSsn() {
+function validateSsn() 
+{
    const ssn = document.getElementById("ssn").value;
    const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
    if (ssnPattern.test(ssn)) {
@@ -79,7 +83,8 @@ function validateSsn() {
 }
 
 
-function validateZcode() {
+function validateZcode() 
+{
    let zcode = document.getElementById("zipcode").value;
    let zip = zcode.replace(/[^0-9]/g, "");
    if (!zip) {
@@ -97,7 +102,8 @@ function validateZcode() {
 }
 
 
-function validateEmail() {
+function validateEmail()
+{
    const emailR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
    const emailInput = document.getElementById("email");
    let email = emailInput.value;
@@ -133,7 +139,8 @@ function validatePhone() {
 }
 
 
-function validateUid() {
+function validateUid() 
+{
    const uid = document.getElementById("uid").value.toLowerCase();
    document.getElementById("uid").value = uid;
    if (uid.length === 0) {
@@ -161,7 +168,8 @@ function validateUid() {
 }
 
 
-function validatePassword(uid, pword) {
+function validatePassword(uid, pword) 
+{
    let errorMessage = [];
    if (!pword.match(/[a-z]/)) errorMessage.push("Enter at least one lowercase letter");
    if (!pword.match(/[A-Z]/)) errorMessage.push("Enter at least one uppercase letter");
@@ -174,7 +182,8 @@ function validatePassword(uid, pword) {
 
 
 
-function validatePword() {
+function validatePword()
+ {
    let pword1 = document.getElementById("password").value;
    let pword2 = document.getElementById("rpword").value;
    if (pword1 !== pword2) {
@@ -185,7 +194,8 @@ function validatePword() {
        return true;
    }
 }
-function reviewInput() {
+function reviewInput() 
+{
    var formcontent = document.getElementById("signup-form");
    var output = '<h3>Please review your information:</h3><table>';
    for (let i = 0; i < formcontent.elements.length; i++) {
@@ -235,7 +245,8 @@ function Reset()
    <button id="close-alert">OK</button>
 </div>
 </div>
-function validateEverything() {
+function validateEverything()
+ {
    let valid = true;
 
 
@@ -265,7 +276,8 @@ function validateEverything() {
        showAlert();
    }
 }
-function validateCity() {
+function validateCity() 
+{
    city = document.getElementById("city").value.trim();
 
 
@@ -277,7 +289,8 @@ function validateCity() {
        return true;
    }
 }
-function validateMini() {
+function validateMini() 
+{
    let mini = document.getElementById("mini").value;
    const namePattern = /^[A-Z]+$/;
 
@@ -295,7 +308,8 @@ function validateMini() {
        return true;
    }
 }
-function validateFname() {
+function validateFname() 
+{
    let fname = document.getElementById("fname").value;
    const namePattern = /^[A-Z]+$/;
 
@@ -312,7 +326,8 @@ function validateFname() {
        return true;
    }
 }
-function validateLname() {
+function validateLname() 
+{
    let lname = document.getElementById("lname").value;
    const namePattern = /^[A-Z]+$/;
 
@@ -329,7 +344,8 @@ function validateLname() {
        return true;
    }
 }
-function validateAddress1() {
+function validateAddress1()
+ {
    let address1 = document.getElementById("address1").value;
    if (!address1) {
        document.getElementById("address1-error").innerHTML = "Address 1 cannot be blank";
@@ -339,7 +355,8 @@ function validateAddress1() {
        return true;
    }
 }
-function validateAddress2() {
+function validateAddress2() 
+{
    let address2 = document.getElementById("address2").value;
    if (!address2) {
        document.getElementById("address2-error").innerHTML = "Address 2 cannot be blank";
@@ -349,7 +366,8 @@ function validateAddress2() {
        return true;
    }
 }
-function validateState() {
+function validateState() 
+{
    let state = document.getElementById("state").value;
    if (!state) {
        document.getElementById("state-error").innerHTML = "State cannot be blank";
@@ -359,7 +377,8 @@ function validateState() {
        return true;
    }
 }
-function validateCheckbox() {
+function validateCheckbox() 
+{
    let checkbox = document.getElementById("checkbox").checked;
    if (!checkbox) {
        document.getElementById("checkbox-error").innerHTML = "You must agree to the terms";
@@ -369,7 +388,8 @@ function validateCheckbox() {
        return true;
    }
 }
-function validateRadio() {
+function validateRadio() 
+{
    let radio = document.getElementsByName("radio");
    let checked = false;
    for (let i = 0; i < radio.length; i++) {
@@ -386,7 +406,8 @@ function validateRadio() {
        return true;
    }
 }
-function validateTerms() {
+function validateTerms() 
+{
    let terms = document.getElementById("terms").checked;
    if (!terms) {
        document.getElementById("terms-error").innerHTML = "You must agree to the terms";
@@ -396,7 +417,8 @@ function validateTerms() {
        return true;
    }
 }
-function showAlert() {
+function showAlert()
+ {
    const alertBox = document.getElementById("alert-box");
    alertBox.style.display = "block";
    const closeButton = document.getElementById("close-alert");
