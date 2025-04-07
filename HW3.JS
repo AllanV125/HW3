@@ -75,10 +75,8 @@ function validateDob() {
         return true;
     }
  }
- 
-
-
-function validateSsn() {
+function validateSsn() 
+{
    const ssn = document.getElementById("ssn").value;
    const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
    if (ssnPattern.test(ssn)) {
@@ -89,9 +87,8 @@ function validateSsn() {
        return false;
    }
 }
-
-
-function validateZcode() {
+function validateZcode() 
+{
    let zcode = document.getElementById("zipcode").value;
    let zip = zcode.replace(/[^0-9]/g, "");
    if (!zip) {
@@ -107,9 +104,8 @@ function validateZcode() {
    document.getElementById("zipcodeError").innerHTML = "";
    return true;
 }
-
-
-function validateEmail() {
+function validateEmail() 
+{
    const emailR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
    const emailInput = document.getElementById("email");
    let email = emailInput.value;
@@ -143,36 +139,38 @@ function validatePhone() {
    }
    return true;
 }
-
-
 function validateUid() {
-   const uid = document.getElementById("uid").value.toLowerCase();
-   document.getElementById("uid").value = uid;
-   if (uid.length === 0) {
-       document.getElementById("uid-error").innerHTML = "User ID must be at least 6 characters";
-       return false;
-   }
-   if (!isNaN(uid.charAt(0))) {
-       document.getElementById("uid-error").innerHTML = "User ID must start with a letter";
-       return false;
-   }
-   let regex = /^[a-z0-9]+$/;
-   if (!regex.test(uid)) {
-       document.getElementById("uid-error").innerHTML = "User ID must contain only letters and numbers";
-       return false;
-   } else if (uid.length < 5) {
-       document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters";
-       return false;
-   } else if (uid.length > 30) {
-       document.getElementById("uid-error").innerHTML = "User ID cannot be more than 30 characters";
-       return false;
-   } else {
-       document.getElementById("uid-error").innerHTML = "";
-       return true;
-   }
-}
-
-
+    const uidField = document.getElementById("uid");
+    let uid = uidField.value.toLowerCase();
+    uidField.value = uid;
+    
+    if (uid.length === 0) {
+      document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
+      return false;
+    }
+    
+    if (!isNaN(uid.charAt(0))) {
+      document.getElementById("uid-error").innerHTML = "User ID must start with a letter.";
+      return false;
+    }
+    
+    let regex = /^[a-z0-9_-]+$/;
+    if (!regex.test(uid)) {
+      document.getElementById("uid-error").innerHTML = "User ID must contain only letters, numbers, dashes, or underscores.";
+      return false;
+    }
+    
+    if (uid.length < 5) {
+      document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
+      return false;
+    } else if (uid.length > 30) {
+      document.getElementById("uid-error").innerHTML = "User ID cannot be more than 30 characters.";
+      return false;
+    } else {
+      document.getElementById("uid-error").innerHTML = "";
+      return true;
+    }
+  }  
 function validatePassword(uid, pword) {
    let errorMessage = [];
    if (!pword.match(/[a-z]/)) errorMessage.push("Enter at least one lowercase letter");

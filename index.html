@@ -10,8 +10,6 @@ Description:Patients Registration Form
 <html lang="en">
 <head>
   <link rel="stylesheet" href="HW3.CSS"> <!-- Link to CSS file -->
-
-
   <title>New Patient Registration Form Adara Medical Clinic</title>
 </head>
 <body>
@@ -88,12 +86,14 @@ Description:Patients Registration Form
               title="Please enter your valid address" placeholder="1234 Main St." onblur="validateAddress()">
               <span class="error" id="address1Error"></span></td>
           </tr>
-             <tr>
-              <td><label for="address2">Address Line 2:</label></td>
-              <td><input type="text" id="address2" name="address2" maxlength="30" required
-              title="Please enter your valid address" placeholder="Apartment 123" onblur="validateAddress()">
-          </tr>
           <tr>
+            <td><label for="address2">Address Line 2:</label></td>
+            <td>
+              <input type="text" id="address2" name="address2" maxlength="30"
+                title="Please enter your valid address" placeholder="Apartment 123" onblur="validateAddress()">
+            </td>
+          </tr>
+          
               <td><label for="City">City:</label></td>
               <td><input type="text" id="city" name="city" maxlength="30" required placeholder="San Antonio"></td>
           </tr>
@@ -239,9 +239,6 @@ Description:Patients Registration Form
                        <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>         
                       </tr> 
                       <div id="review-output"></div>
-
-
-
 
                    </tr>
                    <tr></tr>
