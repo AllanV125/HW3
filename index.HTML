@@ -54,14 +54,10 @@ Description:Patients Registration Form
           </tr>
               <tr>
               <td> <label for="minital">Middle Initial:</label></td>
-              <td><input type="text" id="minital" name="minital" minlength="1" maxlength="1" required
+              <td><input type="text" id="minital" name="minital" minlength="1" maxlength="1" 
                title="Please enter a middle initial" pattern="[A-Za-z'-]{1,1}"
                onblur="validateMiddleInitial()" placeholder="A"></td>
               <span class="error" id="minitalError"></span>
-
-
-
-
               </tr>
           <tr>
               <td><label for= "pgender">Gender:</label></td>
@@ -111,7 +107,7 @@ Description:Patients Registration Form
           <tr>
               <td><label for="state">State:</label></td>
               <td>
-                  <select id="state" name="state" required>
+                  <select id="state" name="state" required required onblur="validateState()">
                   <option selected disabled>Please Select One</option>
                   <option value="TX">Texas</option>
                   <option value="CA">California</option>
@@ -176,12 +172,14 @@ Description:Patients Registration Form
                   <td><label for="email-address">Email Address:</label></td>
                   <td><input type="email" id="email" name="email-address" maxlength="30" required placeholder="name@domain.tld" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" title="Please enter a valid email address" onblur="validateEmail()"></td>
                   <span class="error" id="email-addressError"></span>
-                 </tr>
-                  <td><label for="zipcode">zipcode</label></td>
-                  <td><input type="text" id="zipcode" name="zipcode" minlength="5" maxlength="10" required placeholder="77044" title="Please enter a valid zipcode" pattern="\d{5,10}(-\d{4})?" onblur="validateZcode()"></td>
-                  <span class="error" id="zipcodeError"></span>
-           
-             </tr>
+                  <tr>
+                    <td><label for="zipcode">Zip Code:</label></td>
+                    <td>
+                      <input type="text" id="zipcode" name="zipcode" placeholder="77044" required minlength="5" maxlength="5" title="Enter exactly 5 digits"
+                       pattern="\d{5}" onblur="validateZcode()">
+                    </td>
+                    <td><span id="zipcodeError" class="error"></span></td>
+                  </tr>
                   <td><label for="history">Have you ever had any of
                   <br> these conditions before?</label></td>
                   <tr>
@@ -196,6 +194,22 @@ Description:Patients Registration Form
                   <td><input type="checkbox" id="option4" name="Small Pox" value="Small Pox">Small Pox</td>
                   <tr>
                   <td><input type="checkbox" id="option5" name="Tetanus" value="Tetanus">Tetanus</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><strong>Housing Status:</strong></td>
+                  </tr>
+                  <tr>
+                    <td><input type="radio" id="radio1" name="housing" value="Own" onclick="validateRadio()"></td>
+                    <td><label for="radio1">Own</label></td>
+                  </tr>
+                  <tr>
+                    <td><input type="radio" id="radio2" name="housing" value="Rent" onclick="validateRadio()"></td>
+                    <td><label for="radio2">Rent</label></td>
+                  </tr>
+                  <tr>
+                    <td><input type="radio" id="radio3" name="housing" value="Other" onclick="validateRadio()"></td>
+                    <td><label for="radio3">Other</label></td>
+                    <td><span id="radioError" class="error"></span></td>
                   </tr>
               <tr>
                   <td> <label for="notes"> Please Insert Additional Notes</label></td>
@@ -231,23 +245,22 @@ Description:Patients Registration Form
                     <span class="error" id="pword-error"></span>
                    </td>
                  </tr>
-                
-
-
                       <tr>
                       <td>  <input type="button" name="Review" id="Review" value="Review" onclick="reviewInput()"/>
                        <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>         
                       </tr> 
                       <div id="review-output"></div>
-
-                   </tr>
-                   <tr></tr>
-                      <td>   
-                        <input type="submit" id="submit" value="Submit" disabled>
-                        <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>
-                   </tr>
-                       <td> <input type="button" value="Reset" id="Reset" name="Reset" onclick="Reset()"/>
-                      <tr>                                       
+                      <tr>
+                        <td>
+                          <input type="button" id="validateBtn" value="Validate" onclick="validateEverything()">
+                        </td>
+                        <td>
+                          <input type="submit" id="submitBtn" value="Submit" disabled>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                                                    
                                               <div class="pword-message">
                                                   <span id="pword-message"></span><br/>
                                                   <span id="pword-message2"></span><br/>
