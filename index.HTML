@@ -196,25 +196,21 @@ Description:Patients Registration Form
                   <td><input type="checkbox" id="option5" name="Tetanus" value="Tetanus">Tetanus</td>
                   </tr>
                   <tr>
-                    <td colspan="3"><strong>Housing Status:</strong></td>
+                    <td><label for="housing"><strong>Housing Status:</strong></label></td>
+                    <td>
+                    <tr> <td><input type="radio" id="radio1" name="housing" value="Own" onclick="validateRadio()"> Own</td> </tr>
+                     <tr> <td><input type="radio" id="radio2" name="housing" value="Rent" onclick="validateRadio()"> Rent</td></tr> 
+                      <tr>
+                      <td><input type="radio" id="radio3" name="housing" value="Other" onclick="validateRadio()"> Other</td> 
+                      </tr>
+                    </td>
                   </tr>
-                  <tr>
-                    <td><input type="radio" id="radio1" name="housing" value="Own" onclick="validateRadio()"></td>
-                    <td><label for="radio1">Own</label></td>
-                  </tr>
-                  <tr>
-                    <td><input type="radio" id="radio2" name="housing" value="Rent" onclick="validateRadio()"></td>
-                    <td><label for="radio2">Rent</label></td>
-                  </tr>
-                  <tr>
-                    <td><input type="radio" id="radio3" name="housing" value="Other" onclick="validateRadio()"></td>
-                    <td><label for="radio3">Other</label></td>
-                    <td><span id="radioError" class="error"></span></td>
-                  </tr>
-              <tr>
-                  <td> <label for="notes"> Please Insert Additional Notes</label></td>
-                  <td>
+                  
+                  <td colspan="2">
+                      <label for="notes">Please Insert Additional Notes</label>
                       <textarea id="notes" name="notes" rows="3" cols="50" placeholder="Enter any additional history or concerns here"></textarea>
+                  </td>
+              </tr>
                   </td>
               </tr>
               <tr>
