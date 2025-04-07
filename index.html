@@ -241,21 +241,15 @@ Description:Patients Registration Form
                     <span class="error" id="pword-error"></span>
                    </td>
                  </tr>
-                      <tr>
-                      <td>  <input type="button" name="Review" id="Review" value="Review" onclick="reviewInput()"/>
-                       <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>         
-                      </tr> 
-                      <div id="review-output"></div>
-                      <tr>
-                        <td>
-                          <input type="button" id="validateBtn" value="Validate" onclick="validateEverything()">
-                        </td>
-                        <td>
-                          <input type="submit" id="submitBtn" value="Submit" disabled>
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
+                 <tr>
+                    <td colspan="2" style="text-align: center;">
+                      <button type="button" id="Review" onclick="reviewInput()">Review</button>
+                      <button type="button" id="validate" onclick="validateEverything()" style="font-family: 'pick a font';">Validate</button>
+                      <button type="reset" id="resetBtn" onclick="Reset()">Reset</button>
+                      <input type="submit" id="submitBtn" value="Submit" disabled>
+                    </td>
+                  </tr>
+                  
                                                     
                                               <div class="pword-message">
                                                   <span id="pword-message"></span><br/>
@@ -269,10 +263,15 @@ Description:Patients Registration Form
                                   <div id="alert-box" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
   background-color: #fff; border: 1px solid #333; padding: 20px; z-index: 1000; border-radius: 10px;">
   <div id="alert-content">
+    <div style="text-align: center; margin-top: 20px;">
+        <input type="submit" id="submitBtn" value="Submit" disabled>
+      </div>
+    </form>
     <h4>Please fill out all required fields</h4>
     <button id="close-alert">OK</button>
   </div>
-</div>                            
+</div>                       
+
 </table>
   <footer>
       <p>Adara Medical Clinic<a href="contact.html "> Contact Us!</a></p>
