@@ -330,7 +330,6 @@ function validateAddress1() {
 
 function validateAddress2() {
     let address2 = document.getElementById("address2").value.trim();
-    // If address2 is provided, you may check its length (e.g., 2 to 30 characters)
     if (address2 !== "" && (address2.length < 2 || address2.length > 30)) {
         document.getElementById("address2-error").innerHTML =
           "Address Line 2 must be 2-30 characters if provided";
@@ -370,7 +369,6 @@ function validateRadio() {
         }
     }
     if (!checked) {
-        // Ensure you have a <span id="radio-error"></span> near the radio group in your HTML.
         document.getElementById("radio-error").innerHTML = "Please select a gender.";
         return false;
     } else {
