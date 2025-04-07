@@ -43,17 +43,16 @@ Description:Patients Registration Form
           <tr>
               <td><label for="fname">First Name:</label></td>
               <td><input type="text" id="fname" maxlength="30" required
-              title ="Letter,apostraphes,and dashes on name only" pattern="[A-Za-z'-]{1,30}"
-              onblur="validateName()"
-              placeholder="Allan" />
-              <span class = "error" id="fnameError"></span>
+                title="Letter, apostrophes, and dashes only" pattern="[A-Za-z'-]{1,30}" onblur="validateFname()" placeholder="Allan" />
+         <span class="error" id="fnameError"></span>
+         
           </tr>
           <tr>
               <td><label for="lname">Last Name:</label></td>
               <td><input type="text" id="lname" name="lname" maxlength="30" required placeholder="Vega"
-              title="Letter, apostrophes, and dashes on name only" pattern="[A-Za-z'-]{1,30}"
-              onblur="validateName()" /> </td>
-              <span class="error" id="Lname-error"></span>
+                title="Letter, apostrophes, and dashes only" pattern="[A-Za-z'-]{1,30}" onblur="validateLname()" />
+         <span class="error" id="Lname-error"></span>
+         
               <tr>
               <td> <label for="minital">Middle Initial:</label></td>
               <td><input type="text" id="minital" name="minital" minlength="1" maxlength="1" required
@@ -217,17 +216,18 @@ Description:Patients Registration Form
                   <tr>
                    <td><label for="password">Password:</label></td>
                    <td>
-                     <input type="password" id="password" name="password" minlength="10" title="Please enter a password:" required
-                            onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()">
-                     <span class="error" id="passwordError"></span>
+                    <input type="password" id="password" name="password" minlength="8" required
+                    title="Enter a password (min 8 characters, include uppercase, lowercase, digit)" onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()">
+                   <span class="error" id="passwordError"></span>
                    </td>
                  </tr>
                  <tr>
                    <td><label for="rpword">Reenter Password:</label></td>
                    <td>
-                     <input type="password" id="rpword" name="rpword" minlength="10" title="Please reenter your password:" required
-                            onblur="validatePword()" oninput="validatePword()" onfocus="validatePword()">
-                     <span class="error" id="pword-error"></span>
+                    <input type="password" id="rpword" name="rpword" minlength="8" required
+                    title="Reenter your password" 
+                    onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()">
+                    <span class="error" id="pword-error"></span>
                    </td>
                  </tr>
                 

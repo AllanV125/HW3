@@ -6,11 +6,9 @@ Version: 2.3
 Description: Fixed duplicate/mismatched functions and removed undefined function calls.
 */
 
-// Display the current date
 const d = new Date();
 document.getElementById("today").innerHTML = d.toDateString();
 
-// Update slider value
 let slider = document.getElementById("range");
 let output = document.getElementById("range-slider");
 if (slider && output) {
@@ -19,7 +17,6 @@ if (slider && output) {
     };
 }
 
-// Validate First Name (1-30 characters; letters, apostrophes, dashes allowed)
 function validateFname() {
     let fname = document.getElementById("fname").value.trim();
     const pattern = /^[A-Za-z'-]{1,30}$/;
@@ -31,7 +28,6 @@ function validateFname() {
     return true;
 }
 
-// Validate Last Name (1-30 characters; letters, apostrophes, dashes allowed)
 function validateLname() {
     let lname = document.getElementById("lname").value.trim();
     const pattern = /^[A-Za-z'-]{1,30}$/;
@@ -43,7 +39,6 @@ function validateLname() {
     return true;
 }
 
-// Validate Middle Initial (using id "minital"; optional, but if provided, must be exactly one letter)
 function validateMiddleInitial() {
     const mid = document.getElementById("minital").value.trim();
     if (mid === "") {
@@ -58,7 +53,6 @@ function validateMiddleInitial() {
     return true;
 }
 
-// Validate Date of Birth (must not be in the future or more than 110 years ago)
 function validateDob() {
     const dobInput = document.getElementById("DOB");
     const dob = new Date(dobInput.value);
@@ -78,7 +72,6 @@ function validateDob() {
     return true;
 }
 
-// Validate SSN (format: xxx-xx-xxxx)
 function validateSsn() {
     const ssn = document.getElementById("ssn").value.trim();
     const pattern = /^\d{3}-\d{2}-\d{4}$/;
@@ -90,7 +83,6 @@ function validateSsn() {
     return true;
 }
 
-// Validate Zip Code (must be exactly 5 digits)
 function validateZcode() {
     let zcode = document.getElementById("zipcode").value.trim();
     const pattern = /^\d{5}$/;
@@ -102,7 +94,6 @@ function validateZcode() {
     return true;
 }
 
-// Validate Email Address
 function validateEmail() {
     const email = document.getElementById("email").value.trim();
     const emailR = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -118,7 +109,6 @@ function validateEmail() {
     return true;
 }
 
-// Validate Phone Number (format: xxx-xxx-xxxx)
 function validatePhone() {
     let phone = document.getElementById("phone-number").value.trim();
     const pattern = /^\d{3}-\d{3}-\d{4}$/;
@@ -126,7 +116,6 @@ function validatePhone() {
        document.getElementById("phone-numberError").innerHTML = "Phone cannot be blank.";
        return false;
     }
-    // Remove non-numeric characters and reformat if valid
     phone = phone.replace(/[^0-9]/g, "");
     if (phone.length === 10) {
        phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
@@ -138,44 +127,67 @@ function validatePhone() {
     return true;
 }
 
-// Validate User ID (6–12 characters; must start with a letter; letters and numbers only)
 function validateUid() {
-    const uid = document.getElementById("uid").value.toLowerCase();
-    document.getElementById("uid").value = uid;
-    if (uid.length < 6) {
-       document.getElementById("uid-error").innerHTML = "User ID must be at least 6 characters.";
-       return false;
+    const uidInput = document.getElementById("uid");
+    let uid = uidInput.value.trim();
+    uid = uid.toLowerCase();
+    uidInput.value = uid;
+    if (uid.length < 5) {
+        document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
+        return false;
     }
-    if (!isNaN(uid.charAt(0))) {
-       document.getElementById("uid-error").innerHTML = "User ID must start with a letter.";
-       return false;
+    if (uid.length > 20) {
+        document.getElementById("uid-error").innerHTML = "User ID cannot be more than 20 characters.";
+        return false;
     }
-    const regex = /^[a-z0-9]+$/;
-    if (!regex.test(uid)) {
-       document.getElementById("uid-error").innerHTML = "User ID must contain only letters and numbers.";
-       return false;
+    if (!/^[a-z]/.test(uid)) {
+        document.getElementById("uid-error").innerHTML = "User ID must start with a letter.";
+        return false;
     }
-    if (uid.length > 12) {
-       document.getElementById("uid-error").innerHTML = "User ID cannot be more than 12 characters.";
-       return false;
+    if (!/^[a-z0-9-_]+$/.test(uid)) {
+        document.getElementById("uid-error").innerHTML = "User ID can only contain letters, numbers, dashes, and underscores.";
+        return false;
     }
     document.getElementById("uid-error").innerHTML = "";
     return true;
 }
 
-// Validate Password Matching (checks that both password fields match)
-function validatePword() {
-    let pword1 = document.getElementById("password").value;
-    let pword2 = document.getElementById("rpword").value;
-    if (pword1 !== pword2) {
-       document.getElementById("pword-error").innerHTML = "Passwords do not match.";
-       return false;
+function validatePassword() {
+    const uid = document.getElementById("uid").value.trim();
+    const password = document.getElementById("password").value;
+    const rpword = document.getElementById("rpword").value;
+    
+    if (password.length < 8) {
+        document.getElementById("passwordError").innerHTML = "Password must be at least 8 characters long.";
+        return false;
     }
+    if (!/[A-Z]/.test(password)) {
+        document.getElementById("passwordError").innerHTML = "Password must include at least one uppercase letter.";
+        return false;
+    }
+    if (!/[a-z]/.test(password)) {
+        document.getElementById("passwordError").innerHTML = "Password must include at least one lowercase letter.";
+        return false;
+    }
+    if (!/\d/.test(password)) {
+        document.getElementById("passwordError").innerHTML = "Password must include at least one digit.";
+        return false;
+    }
+    if (password === uid) {
+        document.getElementById("passwordError").innerHTML = "Password cannot be the same as the User ID.";
+        return false;
+    }
+    if (password !== rpword) {
+        document.getElementById("pword-error").innerHTML = "Passwords do not match.";
+        return false;
+    }
+    
+    document.getElementById("passwordError").innerHTML = "";
     document.getElementById("pword-error").innerHTML = "";
     return true;
 }
 
-// Validate Address Line 1 (required)
+
 function validateAddress1() {
     let address1 = document.getElementById("address1").value.trim();
     if (!address1) {
@@ -186,15 +198,12 @@ function validateAddress1() {
     return true;
 }
 
-// Validate Address Line 2 (optional)
 function validateAddress2() {
     let address2 = document.getElementById("address2").value.trim();
-    // Since Address 2 is optional, no error if blank.
     document.getElementById("address2-error").innerHTML = "";
     return true;
 }
 
-// Validate City (required)
 function validateCity() {
     let city = document.getElementById("city").value.trim();
     if (!city) {
@@ -205,7 +214,6 @@ function validateCity() {
     return true;
 }
 
-// Validate State (required)
 function validateState() {
     let state = document.getElementById("state").value;
     if (!state || state === "Please Select One") {
@@ -216,7 +224,6 @@ function validateState() {
     return true;
 }
 
-// Overall validation: Only calls functions we’ve defined
 function validateEverything() {
     let valid = true;
     if (!validateFname()) valid = false;
@@ -231,10 +238,9 @@ function validateEverything() {
     if (!validatePhone()) valid = false;
     if (!validateEmail()) valid = false;
     if (!validateUid()) valid = false;
-    if (!validatePword()) valid = false;
+    if (!validatePassword()) valid = false;
     if (!validateAddress2()) valid = false;
     
-    // Enable the submit button if everything is valid
     document.getElementById("submit").disabled = !valid;
     
     if (!valid) {
@@ -243,13 +249,12 @@ function validateEverything() {
     return valid;
 }
 
-// Custom alert function to display a modal alert box
+
 function showAlert() {
     const alertBox = document.getElementById("alert-box");
     if (alertBox) {
         alertBox.style.display = "block";
         const closeButton = document.getElementById("close-alert");
-        // Remove previous listeners by cloning the button
         closeButton.replaceWith(closeButton.cloneNode(true));
         document.getElementById("close-alert").addEventListener("click", function() {
             alertBox.style.display = "none";
@@ -257,4 +262,14 @@ function showAlert() {
     } else {
         alert("Please fill out all required fields.");
     }
+}
+function Reset() {
+    document.getElementById("signup-form").reset();
+    
+    const errors = document.querySelectorAll(".error");
+    errors.forEach(function(span) {
+        span.innerHTML = "";
+    });
+    
+    document.getElementById("review-output").innerHTML = "";
 }
