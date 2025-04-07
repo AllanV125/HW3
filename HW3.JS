@@ -8,7 +8,7 @@ Description: Homework 3 – Updated for matching HTML element IDs and improved v
 
 
 const d = new Date();
-document.getElementById("today").innerHTML = d;
+document.getElementById("today").innerHTML = d.toDateString();
 
 
 let slider = document.getElementById("range"); 
@@ -20,9 +20,32 @@ slider.oninput = function() {
 };
 
 
-function validateName() {
-   return true;
+function validateFname() {
+    let fname = document.getElementById("fname").value.trim();
+    const namePattern = /^[A-Za-z'-]{1,30}$/;
+    if (!fname.match(namePattern)) {
+        document.getElementById("fnameError").innerHTML =
+          "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
+        return false;
+    } else {
+        document.getElementById("fnameError").innerHTML = "";
+        return true;
+    }
 }
+
+function validateLname() {
+    let lname = document.getElementById("lname").value.trim();
+    const namePattern = /^[A-Za-z'-]{1,30}$/;
+    if (!lname.match(namePattern)) {
+        document.getElementById("Lname-error").innerHTML =
+          "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
+        return false;
+    } else {
+        document.getElementById("Lname-error").innerHTML = "";
+        return true;
+    }
+}
+
 function validateMiddleInitial() {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
@@ -37,33 +60,25 @@ function validateMiddleInitial() {
    }
 }
 
-
-function validateAddress() {
-   return true;
-}
-
-
 function validateDob() {
-   const dobInput = document.getElementById("DOB");
-   const dob = new Date(dobInput.value);
-   const today = new Date();
-   const minDate = new Date();
-   minDate.setFullYear(today.getFullYear() - 110);
-
-
-   if (dob > today) {
-       document.getElementById("DOB-Error").innerHTML = "Date of Birth cannot be in the future";
-       dobInput.value = "";
-       return false;
-   } else if (dob < minDate) {
-       document.getElementById("DOB-Error").innerHTML = "Date of Birth cannot be more than 110 years ago";
-       dobInput.value = "";
-       return false;
-   } else {
-       document.getElementById("DOB-Error").innerHTML = "";
-       return true;
-   }
-}
+    const dobInput = document.getElementById("DOB");
+    const dob = new Date(dobInput.value);
+    const today = new Date();
+    const minDate = new Date();
+    minDate.setFullYear(today.getFullYear() - 120);
+    
+    if (dob > today) {
+        document.getElementById("DOB-Error").innerHTML = "Date of Birth cannot be in the future.";
+        return false;
+    } else if (dob < minDate) {
+        document.getElementById("DOB-Error").innerHTML = "Date of Birth cannot be more than 120 years ago.";
+        return false;
+    } else {
+        document.getElementById("DOB-Error").innerHTML = "";
+        return true;
+    }
+ }
+ 
 
 
 function validateSsn() {
@@ -170,21 +185,51 @@ function validatePassword(uid, pword) {
    if (pword.includes(uid)) errorMessage.push("Password can't contain user ID");
    return errorMessage;
 }
-
-
-
-
-function validatePword() {
-   let pword1 = document.getElementById("password").value;
-   let pword2 = document.getElementById("rpword").value;
-   if (pword1 !== pword2) {
-       document.getElementById("pword-error").innerHTML = "Passwords do not match";
-       return false;
-   } else {
-       document.getElementById("pword-error").innerHTML = "";
-       return true;
-   }
+function validatePassword() {
+    let uid = document.getElementById("uid").value.toLowerCase();
+    let pword = document.getElementById("password").value;
+    let errors = [];
+    
+    if (pword.length < 8 || pword.length > 30) {
+        errors.push("Password must be 8-30 characters long.");
+    }
+    if (!pword.match(/[a-z]/)) {
+        errors.push("Must contain at least one lowercase letter.");
+    }
+    if (!pword.match(/[A-Z]/)) {
+        errors.push("Must contain at least one uppercase letter.");
+    }
+    if (!pword.match(/[0-9]/)) {
+        errors.push("Must contain at least one digit.");
+    }
+    if (!pword.match(/[!\@#\$%\^&*\(\)\-_+=\\\/><.,`~]/)) {
+        errors.push("Must contain at least one special character.");
+    }
+    if (pword.includes(uid)) {
+        errors.push("Password cannot contain the User ID.");
+    }
+    
+    if (errors.length > 0) {
+        document.getElementById("passwordError").innerHTML = errors.join("<br>");
+        return false;
+    } else {
+        document.getElementById("passwordError").innerHTML = "";
+        return true;
+    }
 }
+
+function validatePwordMatch() {
+    let pword1 = document.getElementById("password").value;
+    let pword2 = document.getElementById("rpword").value;
+    if (pword1 !== pword2) {
+        document.getElementById("pword-error").innerHTML = "Passwords do not match.";
+        return false;
+    } else {
+        document.getElementById("pword-error").innerHTML = "";
+        return true;
+    }
+}
+
 function reviewInput() {
    var formcontent = document.getElementById("signup-form");
    var output = '<h3>Please review your information:</h3><table>';
@@ -235,35 +280,36 @@ function Reset() {
 </div>
 </div>
 function validateEverything() {
-   let valid = true;
-
-
-   if (!validateFname()) valid = false;
-   if (!validateMini()) valid = false;
-   if (!validateLname()) valid = false;
-   if (!validateDob()) valid = false;
-   if (!validateSsn()) valid = false;
-   if (!validateAddress1()) valid = false;
-   if (!validateCity()) valid = false;
-   if (!validateState()) valid = false;
-   if (!validateZcode()) valid = false;
-   if (!validatePhone()) valid = false;
-   if (!validateEmail()) valid = false;
-   if (!validateUid()) valid = false;
-   if (!validatePword()) valid = false;
-   if (!validatePassword()) valid = false;
-   if (!validateCheckbox()) valid = false;
-   if (!validateRadio()) valid = false;
-   if (!validateTerms()) valid = false;
-   if (!validateAddress2()) valid = false;
-
-
+    let valid = true;
+    
+    if (!validateFname()) valid = false;
+    if (!validateMiddleInitial()) valid = false;
+    if (!validateLname()) valid = false;
+    if (!validateDob()) valid = false;
+    if (!validateSsn()) valid = false;
+    if (!validateAddress1()) valid = false;
+    // For address2, only validate if not blank:
+    let addr2 = document.getElementById("address2").value.trim();
+    if (addr2 !== "" && !validateAddress2()) valid = false;
+    if (!validateCity()) valid = false;
+    if (!validateState()) valid = false;
+    if (!validateZcode()) valid = false;
+    if (!validatePhone()) valid = false;
+    if (!validateEmail()) valid = false;
+    if (!validateUid()) valid = false;
+    if (!validatePassword()) valid = false;
+    if (!validatePwordMatch()) valid = false;
+    // Update radio validation: now check for gender (name="pgender")
+    if (!validateRadio()) valid = false;
+    // If you require at least one checkbox to be selected, call validateCheckbox() here.
+    
     if (valid) {
-       document.getElementById("submit").disabled = false;
-   } else {
-       showAlert();
-   }
+        document.getElementById("submit").disabled = false;
+    } else {
+        showAlert();
+    }
 }
+
 function validateCity() {
    city = document.getElementById("city").value.trim();
 
@@ -276,77 +322,36 @@ function validateCity() {
        return true;
    }
 }
-function validateMini() {
-   let mini = document.getElementById("mini").value;
-   const namePattern = /^[A-Z]+$/;
-
-
-   mini = mini.toUpperCase();
-   document.getElementById("mini").value = mini;
-
-
-   if (!mini.match(namePattern)) {
-       document.getElementById("mini-error").innerHTML =
-       "Middle initial must be a single uppercase letter";
-       return false;
-   } else {
-       document.getElementById("mini-error").innerHTML = "";
-       return true;
-   }
+function validateAddress() {
+    let valid1 = validateAddress1();
+    let address2 = document.getElementById("address2").value.trim();
+    // For address2, validate only if not empty:
+    let valid2 = (address2 === "" || validateAddress2());
+    return valid1 && valid2;
 }
-function validateFname() {
-   let fname = document.getElementById("fname").value;
-   const namePattern = /^[A-Z]+$/;
 
-
-   fname = fname.toUpperCase();
-   document.getElementById("fname").value = fname;
-
-
-   if (!fname.match(namePattern)) {
-       document.getElementById("fname-error").innerHTML = "First name must be a single uppercase letter";
-       return false;
-   } else {
-       document.getElementById("fname-error").innerHTML = "";
-       return true;
-   }
-}
-function validateLname() {
-   let lname = document.getElementById("lname").value;
-   const namePattern = /^[A-Z]+$/;
-
-
-   lname = lname.toUpperCase();
-   document.getElementById("lname").value = lname;
-
-
-   if (!lname.match(namePattern)) {
-       document.getElementById("lname-error").innerHTML = "Last name must be a single uppercase letter";
-       return false;
-   } else {
-       document.getElementById("lname-error").innerHTML = "";
-       return true;
-   }
-}
 function validateAddress1() {
-   let address1 = document.getElementById("address1").value;
-   if (!address1) {
-       document.getElementById("address1-error").innerHTML = "Address 1 cannot be blank";
-       return false;
-   } else {
-       document.getElementById("address1-error").innerHTML = "";
-       return true;
-   }
+    let address1 = document.getElementById("address1").value.trim();
+    if (address1 === "") {
+        document.getElementById("address1Error").innerHTML = "Address Line 1 cannot be blank";
+        return false;
+    } else {
+        document.getElementById("address1Error").innerHTML = "";
+        return true;
+    }
 }
+
 function validateAddress2() {
-   let address2 = document.getElementById("address2").value;
-   if (!address2) {
-       document.getElementById("address2-error").innerHTML = "Address 2 cannot be blank";
-       return false;
-   } else {
-       document.getElementById("address2-error").innerHTML = "";
-       return true;
-   }
+    let address2 = document.getElementById("address2").value.trim();
+    // If address2 is provided, you may check its length (e.g., 2 to 30 characters)
+    if (address2 !== "" && (address2.length < 2 || address2.length > 30)) {
+        document.getElementById("address2-error").innerHTML =
+          "Address Line 2 must be 2-30 characters if provided";
+        return false;
+    } else {
+        document.getElementById("address2-error").innerHTML = "";
+        return true;
+    }
 }
 function validateState() {
    let state = document.getElementById("state").value;
@@ -369,22 +374,24 @@ function validateCheckbox() {
    }
 }
 function validateRadio() {
-   let radio = document.getElementsByName("radio");
-   let checked = false;
-   for (let i = 0; i < radio.length; i++) {
-       if (radio[i].checked) {
-           checked = true;
-           break;
-       }
-   }
-   if (!checked) {
-       document.getElementById("radio-error").innerHTML = "You must select an option";
-       return false;
-   } else {
-       document.getElementById("radio-error").innerHTML = "";
-       return true;
-   }
+    let radios = document.getElementsByName("pgender");
+    let checked = false;
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            checked = true;
+            break;
+        }
+    }
+    if (!checked) {
+        // Ensure you have a <span id="radio-error"></span> near the radio group in your HTML.
+        document.getElementById("radio-error").innerHTML = "Please select a gender.";
+        return false;
+    } else {
+        document.getElementById("radio-error").innerHTML = "";
+        return true;
+    }
 }
+
 function validateTerms() {
    let terms = document.getElementById("terms").checked;
    if (!terms) {
