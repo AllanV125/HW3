@@ -41,18 +41,19 @@ Description:Patients Registration Form
               <th colspan="2"> <strong>Create Account</strong></th>
           </tr>
           <tr>
-              <td><label for="fname">First Name:</label></td>
-              <td><input type="text" id="fname" maxlength="30" required
-                title="Letter, apostrophes, and dashes only" pattern="[A-Za-z'-]{1,30}" onblur="validateFname()" placeholder="Allan" />
-         <span class="error" id="fnameError"></span>
-         
+           <div>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" placeholder="Allan" onblur="validateFname()" required>
+            </span id="fnameError" class="error"></span>
+           </div>
           </tr>
           <tr>
-              <td><label for="lname">Last Name:</label></td>
-              <td><input type="text" id="lname" name="lname" maxlength="30" required placeholder="Vega"
-                title="Letter, apostrophes, and dashes only" pattern="[A-Za-z'-]{1,30}" onblur="validateLname()" />
-         <span class="error" id="Lname-error"></span>
-         
+            <div>
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname" placeholder="Vega" onblur="validateLname()" required>
+                <span id="lnameError" class="error"></span>
+            </div>
+          </tr>
               <tr>
               <td> <label for="minital">Middle Initial:</label></td>
               <td><input type="text" id="minital" name="minital" minlength="1" maxlength="1" required
@@ -245,12 +246,10 @@ Description:Patients Registration Form
                    </tr>
                    <tr></tr>
                       <td>   
-                       <input type="submit" value="Submit">
-                       <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>
+                        <input type="submit" id="submit" value="Submit" disabled>
+                        <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"></td>
                    </tr>
                        <td> <input type="button" value="Reset" id="Reset" name="Reset" onclick="Reset()"/>
-                           <input type="button" name="validate" id="validate" value="Validate" style="font-family: pick a font;" onclick="validateEverything()"
-                       </td>
                       <tr>                                       
                                               <div class="pword-message">
                                                   <span id="pword-message"></span><br/>
@@ -267,10 +266,7 @@ Description:Patients Registration Form
     <h4>Please fill out all required fields</h4>
     <button id="close-alert">OK</button>
   </div>
-</div>
-<input type="submit" id="submit" value="Submit" disabled>
-
-                              
+</div>                            
 </table>
   <footer>
       <p>Adara Medical Clinic<a href="contact.html "> Contact Us!</a></p>

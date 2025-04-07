@@ -19,33 +19,30 @@ slider.oninput = function() {
    output.innerHTML = this.value;
 };
 
-
 function validateFname() {
-    let fname = document.getElementById("fname").value.trim();
+    const fname = document.getElementById("fname").value.trim();
     const namePattern = /^[A-Za-z'-]{1,30}$/;
     if (!fname.match(namePattern)) {
-        document.getElementById("fnameError").innerHTML =
-          "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
-        return false;
+      document.getElementById("fnameError").innerHTML =
+        "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
+      return false;
     } else {
-        document.getElementById("fnameError").innerHTML = "";
-        return true;
+      document.getElementById("fnameError").innerHTML = "";
+      return true;
     }
-}
-
-function validateLname() {
-    let lname = document.getElementById("lname").value.trim();
+  }
+  function validateLname() {
+    const lname = document.getElementById("lname").value.trim();
     const namePattern = /^[A-Za-z'-]{1,30}$/;
     if (!lname.match(namePattern)) {
-        document.getElementById("Lname-error").innerHTML =
-          "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
-        return false;
+      document.getElementById("lnameError").innerHTML =
+        "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
+      return false;
     } else {
-        document.getElementById("Lname-error").innerHTML = "";
-        return true;
+      document.getElementById("lnameError").innerHTML = "";
+      return true;
     }
-}
-
+  }  
 function validateMiddleInitial() {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
@@ -163,11 +160,11 @@ function validateUid() {
    if (!regex.test(uid)) {
        document.getElementById("uid-error").innerHTML = "User ID must contain only letters and numbers";
        return false;
-   } else if (uid.length < 6) {
-       document.getElementById("uid-error").innerHTML = "User ID must be at least 6 characters";
+   } else if (uid.length < 5) {
+       document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters";
        return false;
-   } else if (uid.length > 12) {
-       document.getElementById("uid-error").innerHTML = "User ID cannot be more than 12 characters";
+   } else if (uid.length > 30) {
+       document.getElementById("uid-error").innerHTML = "User ID cannot be more than 30 characters";
        return false;
    } else {
        document.getElementById("uid-error").innerHTML = "";
@@ -273,12 +270,6 @@ function Reset() {
    document.getElementById("pword-error").innerHTML = "";
    document.getElementById("review-output").innerHTML = "";
 }
-<div id="alert-box">
-<div id="alert-content">
-   <h4>Please fill out all required fields or any other message you want</h4>
-   <button id="close-alert">OK</button>
-</div>
-</div>
 function validateEverything() {
     let valid = true;
     
@@ -288,7 +279,6 @@ function validateEverything() {
     if (!validateDob()) valid = false;
     if (!validateSsn()) valid = false;
     if (!validateAddress1()) valid = false;
-    // For address2, only validate if not blank:
     let addr2 = document.getElementById("address2").value.trim();
     if (addr2 !== "" && !validateAddress2()) valid = false;
     if (!validateCity()) valid = false;
@@ -299,9 +289,7 @@ function validateEverything() {
     if (!validateUid()) valid = false;
     if (!validatePassword()) valid = false;
     if (!validatePwordMatch()) valid = false;
-    // Update radio validation: now check for gender (name="pgender")
     if (!validateRadio()) valid = false;
-    // If you require at least one checkbox to be selected, call validateCheckbox() here.
     
     if (valid) {
         document.getElementById("submit").disabled = false;
@@ -325,7 +313,6 @@ function validateCity() {
 function validateAddress() {
     let valid1 = validateAddress1();
     let address2 = document.getElementById("address2").value.trim();
-    // For address2, validate only if not empty:
     let valid2 = (address2 === "" || validateAddress2());
     return valid1 && valid2;
 }
