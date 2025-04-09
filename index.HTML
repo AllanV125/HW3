@@ -14,7 +14,7 @@ Description:Patients Registration Form
 </head>
 <body>
   <header>
-      <table width="90%">
+    <table width="90%">
           <tr>
               <td valign="top" align="left" width="30%">
                   <img src="Clinic Logo.jpg" alt="Logo of Adara Medical Clinic" width="250" height="200" id="Logo" class="center"/>
@@ -165,7 +165,7 @@ Description:Patients Registration Form
               </tr>
               <tr>
                   <td><label for="phone-number">Phone Number </label></td>
-                  <td><input type="tel" id="phone-number" name="phone-number" maxlength="10" required placeholder="210-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please enter a valid phone number" onblur="validatePhone()"></td>
+                  <td><input type="tel" id="phone-number" name="phone-number" maxlength="12" required placeholder="210-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please enter a valid phone number" onblur="validatePhone()"></td>
                   <span class="error" id="phone-numberError"></span>
               </tr>
               <tr>
@@ -249,7 +249,8 @@ Description:Patients Registration Form
                       <input type="submit" id="submitBtn" value="Submit" disabled>
                     </td>
                   </tr>
-                  
+                  <div id="review-output"></div>
+
                                                     
                                               <div class="pword-message">
                                                   <span id="pword-message"></span><br/>
@@ -274,6 +275,8 @@ Description:Patients Registration Form
 
 </table>
   <footer>
+    <table width="90%"></table>
+    <td valign="top" align="left" width="30%"> </td>
       <p>Adara Medical Clinic<a href="contact.html "> Contact Us!</a></p>
       <p>Adara Medical Clinic &copy; 2025</p>
       <p> All Rights Reserved</p>

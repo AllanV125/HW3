@@ -52,10 +52,10 @@ header{
     padding: 10px;
   }
  footer
- { position:flex;
-    bottom:100%;
-    width:100%;
-    background-color: rgba(123, 244, 248, 0.738);
+ { width: 100%;
+   background-color: rgba(123, 244, 248, 0.738);
+   text-align: center;
+
  }
  #footer
  {

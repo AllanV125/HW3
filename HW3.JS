@@ -290,7 +290,7 @@ function validateEverything() {
     if (!validateRadio()) valid = false;
     
     if (valid) {
-        document.getElementById("submit").disabled = false;
+        document.getElementById("submitBtn").disabled = false;
     } else {
         showAlert();
     }
@@ -393,6 +393,4 @@ function showAlert() {
        alertBox.style.display = "none";
    });
 }
-
-
-
+  
