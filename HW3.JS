@@ -375,16 +375,7 @@ function validateRadio() {
     }
 }
 
-function validateTerms() {
-   let terms = document.getElementById("terms").checked;
-   if (!terms) {
-       document.getElementById("terms-error").innerHTML = "You must agree to the terms";
-       return false;
-   } else {
-       document.getElementById("terms-error").innerHTML = "";
-       return true;
-   }
-}
+
 function showAlert() {
    const alertBox = document.getElementById("alert-box");
    alertBox.style.display = "block";
