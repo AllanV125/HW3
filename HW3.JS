@@ -31,18 +31,19 @@ function validateFname() {
       return true;
     }
   }
-  function validateLname() {
+function validateLname() 
+  {
     const lname = document.getElementById("lname").value.trim();
     const namePattern = /^[A-Za-z'-]{1,30}$/;
     if (!lname.match(namePattern)) {
-      document.getElementById("lnameError").innerHTML =
-        "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
-      return false;
-    } else {
+        document.getElementById("lnameError").innerHTML = "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
+        return false;
+    } else 
+    {
       document.getElementById("lnameError").innerHTML = "";
       return true;
-    }
-  }  
+    }  
+  }
 function validateMiddleInitial() {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
@@ -90,7 +91,7 @@ function validateSsn()
 function validateZcode() 
 {
    let zcode = document.getElementById("zipcode").value;
-   let zip = zcode.replace(/[^0-9]/g, "");
+   let zip = zcode.replace(/[^0-5]/g, "");
    if (!zip) {
        document.getElementById("zipcodeError").innerHTML = "Zip code cannot be blank";
        return false;
@@ -171,20 +172,11 @@ function validateUid() {
       return true;
     }
   }  
-function validatePassword(uid, pword) {
-   let errorMessage = [];
-   if (!pword.match(/[a-z]/)) errorMessage.push("Enter at least one lowercase letter");
-   if (!pword.match(/[A-Z]/)) errorMessage.push("Enter at least one uppercase letter");
-   if (!pword.match(/[0-9]/)) errorMessage.push("Enter at least one number");
-   if (!pword.match(/[!\@#\$%&*\-_\\.+\(\)]/)) errorMessage.push("Enter at least one special character");
-   if (pword.includes(uid)) errorMessage.push("Password can't contain user ID");
-   return errorMessage;
-}
-function validatePassword() {
-    let uid = document.getElementById("uid").value.toLowerCase();
-    let pword = document.getElementById("password").value;
+  function validatePassword() {
+    const uid = document.getElementById("uid").value.toLowerCase();
+    const pword = document.getElementById("password").value;
     let errors = [];
-    
+
     if (pword.length < 8 || pword.length > 30) {
         errors.push("Password must be 8-30 characters long.");
     }
@@ -200,10 +192,10 @@ function validatePassword() {
     if (!pword.match(/[!\@#\$%\^&*\(\)\-_+=\\\/><.,`~]/)) {
         errors.push("Must contain at least one special character.");
     }
-    if (pword.includes(uid)) {
+    if (uid && pword.includes(uid)) {
         errors.push("Password cannot contain the User ID.");
     }
-    
+
     if (errors.length > 0) {
         document.getElementById("passwordError").innerHTML = errors.join("<br>");
         return false;
@@ -384,4 +376,3 @@ function showAlert() {
        alertBox.style.display = "none";
    });
 }
-  

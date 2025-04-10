@@ -41,14 +41,14 @@ Description:Patients Registration Form
           <tr>
            <div>
            <td> <label for="fname">First Name:</label></td>
-            <td><input type="text" id="fname" name="fname" placeholder="Allan" onblur="validateFname()" required></td>
-            </span id="fnameError" class="error"></span>
+           <input type="text" id="fname" name="fname" placeholder="Allan" oninput="validateFname()" onblur="validateFname()" required>
+        </span id="fnameError" class="error"></span>
            </div>
           </tr>
           <tr>
             <div>
               <td> <label for="lname">Last Name:</label></td> 
-               <td><input type="text" id="lname" name="lname" placeholder="Vega" onblur="validateLname()" required></td> 
+               <td><input type="text" id="lname" name="lname" placeholder="Vega" oninput="validateLname()" onblur="validateLname()" required></td> 
                 <span id="lnameError" class="error"></span>
             </div>
           </tr>
@@ -165,12 +165,12 @@ Description:Patients Registration Form
               </tr>
               <tr>
                   <td><label for="phone-number">Phone Number </label></td>
-                  <td><input type="tel" id="phone-number" name="phone-number" maxlength="12" required placeholder="210-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please enter a valid phone number" onblur="validatePhone()"></td>
+                  <td><input type="tel" id="phone-number" name="phone-number" maxlength="12" required placeholder="210-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please enter a valid phone number" oninput="validatePhone()" onblur="validatePhone()"></td>
                   <span class="error" id="phone-numberError"></span>
               </tr>
               <tr>
                   <td><label for="email-address">Email Address:</label></td>
-                  <td><input type="email" id="email" name="email-address" maxlength="30" required placeholder="name@domain.tld" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" title="Please enter a valid email address" onblur="validateEmail()"></td>
+                  <td><input type="email" id="email" name="email-address" maxlength="30" required placeholder="name@domain.tld" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" title="Please enter a valid email address" oninput="validateEmail" onblur="validateEmail()"></td>
                   <span class="error" id="email-addressError"></span>
                   <tr>
                     <td><label for="zipcode">Zip Code:</label></td>
