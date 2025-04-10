@@ -225,21 +225,23 @@ Description:Patients Registration Form
                   <td><input type="text" id="uid" name="UserID" maxlength="25" title="PLease enter a user ID:" required placeholder="Your user ID"></td>
                 
                   <tr>
-                   <td><label for="password">Password:</label></td>
-                   <td>
-                    <input type="password" id="password" name="password" minlength="8" required
-                    title="Enter a password (min 8 characters, include uppercase, lowercase, digit)" onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()">
-                   <span class="error" id="passwordError"></span>
+                    <td><label for="password">Password:</label></td>
+                    <td>
+                      <input type="password" id="password" name="password" minlength="8" required 
+                             title="Enter a password (min 8 characters, include uppercase, lowercase, digit, special character)" 
+                             onblur="validatePassword()" oninput="validatePassword()">
+                      <span class="error" id="passwordError"></span>
+                      <div id="passwordCriteria"></div>
                    </td>
                  </tr>
                  <tr>
-                   <td><label for="rpword">Reenter Password:</label></td>
-                   <td>
-                    <input type="password" id="rpword" name="rpword" minlength="8" required
-                    title="Reenter your password" 
-                    onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()">
-                    <span class="error" id="pword-error"></span>
-                   </td>
+                    <td><label for="rpword">Reenter Password:</label></td>
+                    <td>
+                      <input type="password" id="rpword" name="rpword" minlength="8" required
+                             title="Reenter your password" 
+                             onblur="validatePasswordMatch()" oninput="validatePasswordMatch()">
+                      <span class="error" id="pwordMatchError"></span>
+                    </td>
                  </tr>
                  <tr>
                     <td colspan="2" style="text-align: center;">

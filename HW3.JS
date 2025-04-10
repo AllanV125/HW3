@@ -21,7 +21,7 @@ slider.oninput = function() {
 
 function validateFname() {
     const fname = document.getElementById("fname").value.trim();
-    const namePattern = /^[A-Za-z'-]{1,30}$/;
+    const lnamePattern = /^[A-Za-z'-]{1,2}[0-9]?[A-Za-z'-]{0,27}$/;
     if (!fname.match(namePattern)) {
       document.getElementById("fnameError").innerHTML =
         "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
@@ -31,19 +31,26 @@ function validateFname() {
       return true;
     }
   }
-function validateLname() 
-  {
+  function validateLname() {
     const lname = document.getElementById("lname").value.trim();
-    const namePattern = /^[A-Za-z'-]{1,30}$/;
-    if (!lname.match(namePattern)) {
-        document.getElementById("lnameError").innerHTML = "Last name must be 1-30 characters: letters, apostrophes, and dashes only.";
-        return false;
-    } else 
-    {
-      document.getElementById("lnameError").innerHTML = "";
-      return true;
-    }  
-  }
+    const basicPattern = /^[A-Za-z'-\d]{1,30}$/;
+    if (!basicPattern.test(lname)) {
+         document.getElementById("lnameError").innerHTML = "Last name must be 1-30 characters and contain only letters, apostrophes, dashes, and numbers.";
+         return false;
+    }
+    for (let i = 0; i < lname.length; i++) {
+       if (/\d/.test(lname[i]) && i === 0) {
+         document.getElementById("lnameError").innerHTML = "No numbers allowed in the first character.";
+         return false;
+       }
+       if (/\d/.test(lname[i]) && i > 4) {
+         document.getElementById("lnameError").innerHTML = "Digits, if present, must be within positions 2 to 5.";
+         return false;
+       }
+    }
+    document.getElementById("lnameError").innerHTML = "";
+    return true;
+}
 function validateMiddleInitial() {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
@@ -144,7 +151,8 @@ function validateUid() {
     const uidField = document.getElementById("uid");
     let uid = uidField.value.toLowerCase();
     uidField.value = uid;
-    
+    const pattern = /^[a-z][a-z0-9_-]{4,29}$/; 
+
     if (uid.length === 0) {
       document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
       return false;
@@ -175,7 +183,8 @@ function validateUid() {
   function validatePassword() {
     const uid = document.getElementById("uid").value.toLowerCase();
     const pword = document.getElementById("password").value;
-    let errors = [];
+    let criteria = [];
+    let valid = true;
 
     if (pword.length < 8 || pword.length > 30) {
         errors.push("Password must be 8-30 characters long.");
@@ -203,6 +212,10 @@ function validateUid() {
         document.getElementById("passwordError").innerHTML = "";
         return true;
     }
+    let feedbackHTML = "<ul>";
+    criteria.forEach(function(item) {
+         feedbackHTML += "<li>" + item + "</li>";
+    });
 }
 
 function validatePwordMatch() {
@@ -216,7 +229,8 @@ function validatePwordMatch() {
         return true;
     }
 }
-
+document.getElementById("password").addEventListener("input", validatePassword);
+document.getElementById("rpword").addEventListener("input", validatePassword);
 function reviewInput() {
    var formcontent = document.getElementById("signup-form");
    var output = '<h3>Please review your information:</h3><table>';
