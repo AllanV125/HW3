@@ -211,20 +211,20 @@ function validateUid() {
         document.getElementById("passwordError").innerHTML = "";
         return true;
     }
-    let feedbackHTML = "<ul>";
-    criteria.forEach(function(item) {
-         feedbackHTML += "<li>" + item + "</li>";
-    });
-    feedbackHTML += "</ul>";
-    document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
-
-    if (errors.length > 0) {
-        document.getElementById("passwordError").innerHTML = errors.join("<br>");
-        return false;
-    } else {
-        document.getElementById("passwordError").innerHTML = "";
-        return true;
-    }
+   let feedbackHTML = "<ul>";
+   criteria.forEach(function(item) {
+        feedbackHTML += "<li>" + item + "</li>";
+   });
+   feedbackHTML += "</ul>";
+   document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
+   
+   if (errors.length > 0) {
+       document.getElementById("passwordError").innerHTML = errors.join("<br>");
+       return false;
+   } else {
+       document.getElementById("passwordError").innerHTML = "";
+       return true;
+   }
 }
 
 function validatePwordMatch() {
@@ -272,7 +272,7 @@ function Reset() {
    validateZcode();
    alert("Form has been reset successfully!");
    document.getElementById("fnameError").innerHTML = "";
-   document.getElementById("Lname-error").innerHTML = "";
+   document.getElementById("lnameError").innerHTML = "";
    document.getElementById("minitalError").innerHTML = "";
    document.getElementById("DOB-Error").innerHTML = "";
    document.getElementById("ssn-error").innerHTML = "";
