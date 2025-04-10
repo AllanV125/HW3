@@ -21,7 +21,7 @@ slider.oninput = function() {
 
 function validateFname() {
     const fname = document.getElementById("fname").value.trim();
-    const lnamePattern = /^[A-Za-z'-]{1,2}[0-9]?[A-Za-z'-]{0,27}$/;
+    const namePattern = /^[A-Za-z'-]{1,2}[0-9]?[A-Za-z'-]{0,27}$/;
     if (!fname.match(namePattern)) {
       document.getElementById("fnameError").innerHTML =
         "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
@@ -98,7 +98,7 @@ function validateSsn()
 function validateZcode() 
 {
    let zcode = document.getElementById("zipcode").value;
-   let zip = zcode.replace(/[^0-5]/g, "");
+   let zip = zcode.replace(/[^0-9]/g, "");
    if (!zip) {
        document.getElementById("zipcodeError").innerHTML = "Zip code cannot be blank";
        return false;
@@ -183,9 +183,8 @@ function validateUid() {
   function validatePassword() {
     const uid = document.getElementById("uid").value.toLowerCase();
     const pword = document.getElementById("password").value;
-    let criteria = [];
-    let valid = true;
-
+    let errors = [];
+    let criteria = []; 
     if (pword.length < 8 || pword.length > 30) {
         errors.push("Password must be 8-30 characters long.");
     }
@@ -216,6 +215,16 @@ function validateUid() {
     criteria.forEach(function(item) {
          feedbackHTML += "<li>" + item + "</li>";
     });
+    feedbackHTML += "</ul>";
+    document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
+
+    if (errors.length > 0) {
+        document.getElementById("passwordError").innerHTML = errors.join("<br>");
+        return false;
+    } else {
+        document.getElementById("passwordError").innerHTML = "";
+        return true;
+    }
 }
 
 function validatePwordMatch() {
