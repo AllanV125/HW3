@@ -179,53 +179,73 @@ function validateUid() {
       document.getElementById("uid-error").innerHTML = "";
       return true;
     }
-  }  
-  function validatePassword() {
+}
+function validatePassword() {
     const uid = document.getElementById("uid").value.toLowerCase();
     const pword = document.getElementById("password").value;
     let errors = [];
-    let criteria = []; 
+    let criteria = [];
+    
     if (pword.length < 8 || pword.length > 30) {
         errors.push("Password must be 8-30 characters long.");
+        criteria.push("✗ Must be 8-30 characters long");
+    } else {
+        criteria.push("✓ Length OK");
     }
+    
     if (!pword.match(/[a-z]/)) {
         errors.push("Must contain at least one lowercase letter.");
+        criteria.push("✗ At least one lowercase letter required");
+    } else {
+        criteria.push("✓ Contains lowercase letter");
     }
+    
     if (!pword.match(/[A-Z]/)) {
         errors.push("Must contain at least one uppercase letter.");
+        criteria.push("✗ At least one uppercase letter required");
+    } else {
+        criteria.push("✓ Contains uppercase letter");
     }
+    
     if (!pword.match(/[0-9]/)) {
         errors.push("Must contain at least one digit.");
+        criteria.push("✗ At least one digit required");
+    } else {
+        criteria.push("✓ Contains a digit");
     }
+    
     if (!pword.match(/[!\@#\$%\^&*\(\)\-_+=\\\/><.,`~]/)) {
         errors.push("Must contain at least one special character.");
+        criteria.push("✗ At least one special character required");
+    } else {
+        criteria.push("✓ Contains special character");
     }
+    
     if (uid && pword.includes(uid)) {
         errors.push("Password cannot contain the User ID.");
-    }
-
-    if (errors.length > 0) {
-        document.getElementById("passwordError").innerHTML = errors.join("<br>");
-        return false;
+        criteria.push("✗ Must not include the User ID");
     } else {
-        document.getElementById("passwordError").innerHTML = "";
-        return true;
+        criteria.push("✓ Does not contain User ID");
     }
-   let feedbackHTML = "<ul>";
-   criteria.forEach(function(item) {
-        feedbackHTML += "<li>" + item + "</li>";
-   });
-   feedbackHTML += "</ul>";
-   document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
-   
-   if (errors.length > 0) {
-       document.getElementById("passwordError").innerHTML = errors.join("<br>");
-       return false;
-   } else {
-       document.getElementById("passwordError").innerHTML = "";
-       return true;
-   }
+    
+    let feedbackHTML = "<ul>";
+    criteria.forEach(function(item) {
+         feedbackHTML += "<li>" + item + "</li>";
+    });
+    feedbackHTML += "</ul>";
+    document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
+    
+    // Finally, display errors if any and return validation result
+    if (errors.length > 0) {
+         document.getElementById("passwordError").innerHTML = errors.join("<br>");
+         return false;
+    } else {
+         document.getElementById("passwordError").innerHTML = "";
+         return true;
+    }
 }
+
+
 
 function validatePwordMatch() {
     let pword1 = document.getElementById("password").value;

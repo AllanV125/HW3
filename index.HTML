@@ -69,6 +69,7 @@ Description:Patients Registration Form
                   <input type="radio" id="g3" name="pgender" value="Other">Other
                   <div></div>
                   <input type="radio" id="g4" name="pgender" value="Prefer not to say">Prefer not to say
+                  <span id="gender-error" class="error"></span>
               </td>
           </tr>
           <tr>
@@ -87,6 +88,7 @@ Description:Patients Registration Form
             <td>
               <input type="text" id="address2" name="address2" maxlength="30"
                 title="Please enter your valid address" placeholder="Apartment 123" onblur="validateAddress()">
+                <span id="address2-error" class="error"></span>
             </td>
           </tr>
           
@@ -230,8 +232,9 @@ Description:Patients Registration Form
               <tr>
                   <td class="td1"><label for="uid">User ID:</label> </td>
                   <td><input type="text" id="uid" name="UserID" maxlength="25" title="PLease enter a user ID:" required placeholder="Your user ID"></td>
-                  <span id="uid-error" class="error"></span>                  <tr>
-                    <td><label for="password">Password:</label></td>
+                      <span id="uid-error" class="error"></span>
+                    </td>
+                  </tr>
                     <tr>
                         <td><label for="password">Password:</label></td>
                         <td>
@@ -241,8 +244,8 @@ Description:Patients Registration Form
                             <span class="error" id="passwordError"></span>
                             <div id="passwordCriteria"></div>
                         </td>
-                    </tr>                    
-                 <tr>
+                   <tr>    </tr>                    
+              
                     <td><label for="rpword">Reenter Password:</label></td>
                     <td>
                       <input type="password" id="rpword" name="rpword" minlength="8" required
