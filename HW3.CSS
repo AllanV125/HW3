@@ -228,8 +228,9 @@ header{
    border-color: #333;
    
  }
- input {
-   transition: border-color 0.3s;
+ input, select, textarea {
+   border: 1px solid #ccc;
+   transition: border-color 0.3s ease;  /* Optional: smooth transition */
 }
 
  

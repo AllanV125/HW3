@@ -20,6 +20,7 @@ slider.oninput = function() {
 };
 
 function validateFname() {
+    const fnameInput = document.getElementById("fname"); 
     const fname = document.getElementById("fname").value.trim();
     const namePattern = /^[A-Za-z'-]{1,2}[0-9]?[A-Za-z'-]{0,27}$/;
     if (!fname.match(namePattern)) {
@@ -34,6 +35,7 @@ function validateFname() {
     }
   }
   function validateLname() {
+    const lnameInput = document.getElementById("lname");
     const lname = document.getElementById("lname").value.trim();
     const basicPattern = /^[A-Za-z'-\d]{1,30}$/;
     if (!basicPattern.test(lname)) {
@@ -58,6 +60,7 @@ function validateFname() {
     return true;
 }
 function validateMiddleInitial() {
+    const miInput = document.getElementById("minital");
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
        document.getElementById("minitalError").innerHTML = "Middle initial cannot be blank";
@@ -97,9 +100,11 @@ function validateSsn() {
     const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
     if (ssnPattern.test(ssn)) {
         document.getElementById("ssn-error").innerHTML = "";
+        ssnInput.style.borderColor = "green";
         return true;
     } else {
         document.getElementById("ssn-error").innerHTML = "Please enter a valid SSN";
+        ssnInput.style.borderColor = "red";
         return false;
     }
  }
@@ -115,6 +120,7 @@ function validateSsn() {
  
 function validateZcode() 
 {
+    const zcodeInput = document.getElementById("zipcode");
    let zcode = document.getElementById("zipcode").value;
    let zip = zcode.replace(/[^0-9]/g, "");
    if (!zip) {
@@ -196,7 +202,7 @@ function validateUid() {
       document.getElementById("uid-error").innerHTML = "User ID must start with a letter.";
 
       uidField.style.borderColor = "red";
-      return false;
+      return false;ss
     }
     
     let regex = /^[a-z0-9_-]+$/;
@@ -222,6 +228,7 @@ function validateUid() {
 }
 function validatePassword() {
     const uid = document.getElementById("uid").value.toLowerCase();
+    const passwordInput = document.getElementById("password");
     const pword = document.getElementById("password").value;
     let errors = [];
     let criteria = [];
@@ -369,6 +376,9 @@ function validateEverything() {
 }
 
 function validateCity() {
+    const cityInput = document.getElementById("city");
+    const city = cityInput.value.trim();
+
    city = document.getElementById("city").value.trim();
 
 
@@ -390,6 +400,7 @@ function validateAddress() {
 }
 
 function validateAddress1() {
+    const address1Input = document.getElementById("address1");
     let address1 = document.getElementById("address1").value.trim();
     if (address1 === "") {
         document.getElementById("address1Error").innerHTML = "Address Line 1 cannot be blank";
@@ -403,6 +414,7 @@ function validateAddress1() {
 }
 
 function validateAddress2() {
+    const address2Input = document.getElementById("address2");
     let address2 = document.getElementById("address2").value.trim();
     if (address2 !== "" && (address2.length < 2 || address2.length > 30)) {
         document.getElementById("address2-error").innerHTML =
@@ -416,6 +428,7 @@ function validateAddress2() {
     }
 }
 function validateState() {
+    const stateSelect = document.getElementById("state");
    let state = document.getElementById("state").value;
    if (!state) {
        document.getElementById("state-error").innerHTML = "State cannot be blank";
