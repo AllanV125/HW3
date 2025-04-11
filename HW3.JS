@@ -25,9 +25,11 @@ function validateFname() {
     if (!fname.match(namePattern)) {
       document.getElementById("fnameError").innerHTML =
         "First name must be 1-30 characters: letters, apostrophes, and dashes only.";
-      return false;
+        fnameInput.style.borderColor = "red";
+        return false;
     } else {
       document.getElementById("fnameError").innerHTML = "";
+      fnameInput.style.borderColor = "green";
       return true;
     }
   }
@@ -36,31 +38,38 @@ function validateFname() {
     const basicPattern = /^[A-Za-z'-\d]{1,30}$/;
     if (!basicPattern.test(lname)) {
          document.getElementById("lnameError").innerHTML = "Last name must be 1-30 characters and contain only letters, apostrophes, dashes, and numbers.";
+         lnameInput.style.borderColor = "red";
          return false;
     }
     for (let i = 0; i < lname.length; i++) {
        if (/\d/.test(lname[i]) && i === 0) {
          document.getElementById("lnameError").innerHTML = "No numbers allowed in the first character.";
+         lnameInput.style.borderColor = "red";
          return false;
        }
        if (/\d/.test(lname[i]) && i > 4) {
          document.getElementById("lnameError").innerHTML = "Digits, if present, must be within positions 2 to 5.";
+         lnameInput.style.borderColor = "red";
          return false;
        }
     }
     document.getElementById("lnameError").innerHTML = "";
+    lnameInput.style.borderColor = "green";
     return true;
 }
 function validateMiddleInitial() {
    const middleInitial = document.getElementById("minital").value;
    if (!middleInitial) {
        document.getElementById("minitalError").innerHTML = "Middle initial cannot be blank";
+       miInput.style.borderColor = "red";
        return false;
    } else if (middleInitial.length > 1) {
        document.getElementById("minitalError").innerHTML = "Middle initial must be a single character";
+       miInput.style.borderColor = "red"; 
        return false;
    } else {
        document.getElementById("minitalError").innerHTML = "";
+       miInput.style.borderColor = "green";
        return true;
    }
 }
@@ -83,24 +92,34 @@ function validateDob() {
         return true;
     }
  }
-function validateSsn() 
-{
-   const ssn = document.getElementById("ssn").value;
-   const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
-   if (ssnPattern.test(ssn)) {
-       document.getElementById("ssn-error").innerHTML = "";
-       return true;
-   } else {
-       document.getElementById("ssn-error").innerHTML = "Please enter a valid SSN";
-       return false;
-   }
-}
+function validateSsn() {
+    const ssn = document.getElementById("ssn").value;
+    const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
+    if (ssnPattern.test(ssn)) {
+        document.getElementById("ssn-error").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("ssn-error").innerHTML = "Please enter a valid SSN";
+        return false;
+    }
+ }
+ document.getElementById("ssn").addEventListener("input", function() {
+     let digits = this.value.replace(/\D/g, "");
+          if (digits.length > 5) {
+          digits = digits.substring(0, 3) + "-" + digits.substring(3, 5) + "-" + digits.substring(5, 9);
+     } else if (digits.length > 3) {
+          digits = digits.substring(0, 3) + "-" + digits.substring(3, 5);
+     }
+     this.value = digits;
+ });
+ 
 function validateZcode() 
 {
    let zcode = document.getElementById("zipcode").value;
    let zip = zcode.replace(/[^0-9]/g, "");
    if (!zip) {
        document.getElementById("zipcodeError").innerHTML = "Zip code cannot be blank";
+       zcodeInput.style.borderColor = "red";
        return false;
    }
    if (zcode.length > 5) {
@@ -110,6 +129,7 @@ function validateZcode()
    }
    document.getElementById("zipcode").value = zcode;
    document.getElementById("zipcodeError").innerHTML = "";
+   zcodeInput.style.borderColor = "green";
    return true;
 }
 function validateEmail() 
@@ -119,34 +139,48 @@ function validateEmail()
    let email = emailInput.value;
    if (!email) {
        document.getElementById("email-addressError").innerHTML = "Email cannot be blank";
-       return false;
+       emailInput.style.borderColor = "red";
+        return false;
    }
    if (!emailR.test(email)) {
        document.getElementById("email-addressError").innerHTML = "Please enter a valid email";
-       return false;
+       emailInput.style.borderColor = "red";
+        return false;
+
    } else {
        document.getElementById("email-addressError").innerHTML = "";
-       return true;
+       emailInput.style.borderColor = "green";
+        return true;
    }
 }
-
-
+function formatPhoneNumber(phone) {
+    phone = phone.replace(/[^0-9]/g, "");
+    if (phone.length === 10) {
+        return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    }
+    return null;
+}
 function validatePhone() {
-   let phone = document.getElementById("phone-number").value;
-   if (!phone) {
-       document.getElementById("phone-numberError").innerHTML = "Phone cannot be blank";
-       return false;
-   }
-   phone = phone.replace(/[^0-9]/g, "");
-   if (phone.length === 10) {
-       phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-       document.getElementById("phone-numberError").innerHTML = "";
-   } else {
-       document.getElementById("phone-numberError").innerHTML = "Please enter a valid phone number";
-       return false;
-   }
-   return true;
-}
+    const phoneInput = document.getElementById("phone-number");
+    let phone = phoneInput.value;
+    if (!phone) {
+        document.getElementById("phone-numberError").innerHTML = "Phone cannot be blank";
+        phoneInput.style.borderColor = "red";
+        return false;
+    }
+    phone = phone.replace(/[^0-9]/g, "");
+    if (phone.length === 10) {
+        phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+        document.getElementById("phone-numberError").innerHTML = "";
+        phoneInput.style.borderColor = "green";
+    } else {
+        document.getElementById("phone-numberError").innerHTML = "Please enter a valid phone number";
+        phoneInput.style.borderColor = "red";
+        return false;
+    }
+    return true;
+ }
+ 
 function validateUid() {
     const uidField = document.getElementById("uid");
     let uid = uidField.value.toLowerCase();
@@ -154,29 +188,35 @@ function validateUid() {
     const pattern = /^[a-z][a-z0-9_-]{4,29}$/; 
 
     if (uid.length === 0) {
-      document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
+      document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";      uidField.style.borderColor = "red";
       return false;
     }
     
     if (!isNaN(uid.charAt(0))) {
       document.getElementById("uid-error").innerHTML = "User ID must start with a letter.";
+
+      uidField.style.borderColor = "red";
       return false;
     }
     
     let regex = /^[a-z0-9_-]+$/;
     if (!regex.test(uid)) {
       document.getElementById("uid-error").innerHTML = "User ID must contain only letters, numbers, dashes, or underscores.";
+      uidField.style.borderColor = "red";
       return false;
     }
     
     if (uid.length < 5) {
       document.getElementById("uid-error").innerHTML = "User ID must be at least 5 characters.";
+      uidField.style.borderColor = "red";
       return false;
     } else if (uid.length > 30) {
       document.getElementById("uid-error").innerHTML = "User ID cannot be more than 30 characters.";
+      uidField.style.borderColor = "red";
       return false;
     } else {
       document.getElementById("uid-error").innerHTML = "";
+      uidField.style.borderColor = "green";
       return true;
     }
 }
@@ -227,26 +267,23 @@ function validatePassword() {
     } else {
         criteria.push("✓ Does not contain User ID");
     }
-    
-    let feedbackHTML = "<ul>";
-    criteria.forEach(function(item) {
-         feedbackHTML += "<li>" + item + "</li>";
-    });
-    feedbackHTML += "</ul>";
-    document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
-    
-    // Finally, display errors if any and return validation result
-    if (errors.length > 0) {
-         document.getElementById("passwordError").innerHTML = errors.join("<br>");
-         return false;
-    } else {
-         document.getElementById("passwordError").innerHTML = "";
-         return true;
-    }
+  let feedbackHTML = "<ul>";
+  criteria.forEach(function(item) {
+       feedbackHTML += "<li>" + item + "</li>";
+  });
+  feedbackHTML += "</ul>";
+  document.getElementById("passwordCriteria").innerHTML = feedbackHTML;
+  
+  if (errors.length > 0) {
+       document.getElementById("passwordError").innerHTML = errors.join("<br>");
+       passwordInput.style.borderColor = "red";
+       return false;
+  } else {
+       document.getElementById("passwordError").innerHTML = "";
+       passwordInput.style.borderColor = "green";
+       return true;
+  }
 }
-
-
-
 function validatePwordMatch() {
     let pword1 = document.getElementById("password").value;
     let pword2 = document.getElementById("rpword").value;
@@ -337,9 +374,11 @@ function validateCity() {
 
    if (!city) {
        document.getElementById("city-error").innerHTML = "City can't be blank";
+       cityInput.style.borderColor = "red";
        return false;
    } else {
        document.getElementById("city-error").innerHTML = "";
+       cityInput.style.borderColor = "green";
        return true;
    }
 }
@@ -354,9 +393,11 @@ function validateAddress1() {
     let address1 = document.getElementById("address1").value.trim();
     if (address1 === "") {
         document.getElementById("address1Error").innerHTML = "Address Line 1 cannot be blank";
+        address1Input.style.borderColor = "red";
         return false;
     } else {
         document.getElementById("address1Error").innerHTML = "";
+        address1Input.style.borderColor = "green";
         return true;
     }
 }
@@ -366,9 +407,11 @@ function validateAddress2() {
     if (address2 !== "" && (address2.length < 2 || address2.length > 30)) {
         document.getElementById("address2-error").innerHTML =
           "Address Line 2 must be 2-30 characters if provided";
-        return false;
+          address2Input.style.borderColor = "red";
+          return false;
     } else {
         document.getElementById("address2-error").innerHTML = "";
+        address2Input.style.borderColor = "green";
         return true;
     }
 }
@@ -376,9 +419,11 @@ function validateState() {
    let state = document.getElementById("state").value;
    if (!state) {
        document.getElementById("state-error").innerHTML = "State cannot be blank";
+       stateSelect.style.borderColor = "red";
        return false;
    } else {
        document.getElementById("state-error").innerHTML = "";
+       stateSelect.style.borderColor = "green";
        return true;
    }
 }

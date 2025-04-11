@@ -228,5 +228,8 @@ header{
    border-color: #333;
    
  }
- 
+ input {
+   transition: border-color 0.3s;
+}
+
  
