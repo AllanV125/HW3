@@ -367,12 +367,12 @@ function validateEverything() {
     if (!validatePassword()) valid = false;
     if (!validatePwordMatch()) valid = false;
     if (!validateRadio()) valid = false;
-    
     if (valid) {
         document.getElementById("submitBtn").disabled = false;
     } else {
         showAlert();
     }
+    
 }
 
 function validateCity() {
@@ -527,11 +527,9 @@ document.getElementById("remember-me").addEventListener("change", function () {
     const rememberMe = this.checked;
 
     if (!rememberMe) {
-        // If "Remember Me" is unchecked, delete cookies
         deleteAllCookies();
         console.log("All cookies deleted because 'Remember Me' is unchecked.");
     } else {
-        // If "Remember Me" is checked or rechecked, save cookies
         inputs.forEach(function (input) {
             const inputElement = document.getElementById(input.id);
             if (inputElement.value.trim() !== "") {
