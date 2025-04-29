@@ -6,27 +6,7 @@ Version: 1.1
 Description: Homework 3 – Updated for matching HTML element IDs and improved validations.
 */
 
-const inputs = [
-    { id: "fname", cookieName: "firstName" }
-  ];
-  function setCookie(name, cvalue, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + days*24*60*60*1000);
-    document.cookie = `${name}=${cvalue};expires=${d.toUTCString()};path=/`;
-  }
-  function getCookie(name) {
-    const prefix = name + "=";
-    return document.cookie
-      .split("; ")
-      .find(row => row.startsWith(prefix))
-      ?.split("=")[1] || "";
-  }
-  function deleteAllCookies() {
-    document.cookie.split(";").forEach(cookie => {
-      const name = cookie.split("=")[0];
-      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
-    });
-  }
+
 const d = new Date();
 document.getElementById("today").innerHTML = d.toDateString();
 
@@ -498,81 +478,69 @@ function showAlert() {
        alertBox.style.display = "none";
    });
 }
-function setCookie(name, cvalue, expiryDays)
- {
-    var day = new Date();
-    day.setTime(day.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + day.toUTCString();
-    document.cookie = name + "=" + cvalue + ";" + expires + ";path=/";
+const COOKIE_DAYS = 2;
+function setCookie(name, value, days = COOKIE_DAYS) {
+  const d = new Date();
+  d.setTime(d.getTime() + days*24*60*60*1000);
+  document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
 }
-function getCookie(name) 
-{
-    var cookieName = name + "=";
-    var cookies = document.cookie.split(';');
-
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.indexOf(cookieName) == 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
-    }
-    return "";
+function getCookie(name) {
+  return document.cookie
+    .split('; ')
+    .find(r => r.startsWith(name + '='))
+    ?.split('=')[1] || '';
 }
-inputs.forEach(function (input) {
-    var inputElement = document.getElementById(input.id);
+function deleteAllCookies() {
+  document.cookie.split(';').forEach(c => {
+    const n = c.split('=')[0];
+    document.cookie = `${n}=;expires=Thu,01 Jan 1970 00:00:00 UTC;path=/`;
+  });
+}
 
-    var cookieValue = getCookie(input.cookieName);
-    if (cookieValue !== "") {
-        inputElement.value = cookieValue;
+// ─── Page init: date, First Name cookie, “Not X?”, Remember-Me ───
+document.getElementById('today').textContent = new Date().toDateString();
+
+// Prefill & save firstName
+const inputs = [{ id: 'fname', cookieName: 'firstName' }];
+inputs.forEach(i => {
+  const el = document.getElementById(i.id),
+        v  = getCookie(i.cookieName);
+  if (v) el.value = v;
+  el.addEventListener('input', () => {
+    if (document.getElementById('remember-me').checked) {
+      setCookie(i.cookieName, el.value);
     }
-
-    inputElement.addEventListener("input", function () {
-        setCookie(input.cookieName, inputElement.value, 30);
-    });
+  });
 });
-var firstName = getCookie("firstName");
-if (firstName !== "") {
-    document.getElementById("welcome1").innerHTML = "Welcome back, " + firstName + "!<br>";
-    document.getElementById("welcome2").innerHTML =
-        "<a href='#' id='new-user'>Not " + firstName + "? Click here to start a new form.</a>";
 
-    document.getElementById("new-user").addEventListener("click", function () {
-        inputs.forEach(function (input) {
-            setCookie(input.cookieName, "", -1);
-        });
-        location.reload();
-    });
+// Welcome back / Not-X? flow
+const firstName = getCookie('firstName');
+if (firstName) {
+  document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
+  document.getElementById('welcome2').innerHTML =
+    `<a href="#" id="new-user">Not ${firstName}? Start over.</a>`;
+  document.getElementById('new-user').addEventListener('click', e => {
+    e.preventDefault();
+    deleteAllCookies();
+    document.getElementById('signup-form').reset();
+    location.reload();
+  });
+} else {
+  document.getElementById('welcome1').textContent = 'Hello, New User!';
 }
 
-document.getElementById("remember-me").addEventListener("change", function () {
-    const rememberMe = this.checked;
-
-    if (!rememberMe) {
-        deleteAllCookies();
-        console.log("All cookies deleted because 'Remember Me' is unchecked.");
-    } else {
-        inputs.forEach(function (input) {
-            const inputElement = document.getElementById(input.id);
-            if (inputElement.value.trim() !== "") {
-                setCookie(input.cookieName, inputElement.value, 30);
-            }
-        });
-        console.log("Cookies saved because 'Remember Me' is checked.");
-    }
+// Remember-Me toggle
+document.getElementById('remember-me').addEventListener('change', function() {
+  if (!this.checked) {
+    deleteAllCookies();
+    document.getElementById('signup-form').reset();
+  } else {
+    const v = document.getElementById('fname').value.trim();
+    if (v) setCookie('firstName', v);
+  }
 });
-function deleteAllCookies()
- {
-    document.cookie.split(";").forEach(function (cookie) {
-        let eqPos = cookie.indexOf("=");
-        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
-    });
-}
-document.addEventListener("DOMContentLoaded", function () 
-{
-    const rememberMe = document.getElementById("remember-me").checked;
 
-    if (!rememberMe) {
-        deleteAllCookies();
-    }
+// Optional: live range slider
+document.getElementById('range').addEventListener('input', function() {
+  document.getElementById('range-slider').textContent = this.value;
 });
