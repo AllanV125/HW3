@@ -6,7 +6,27 @@ Version: 1.1
 Description: Homework 3 – Updated for matching HTML element IDs and improved validations.
 */
 
-
+const inputs = [
+    { id: "fname", cookieName: "firstName" }
+  ];
+  function setCookie(name, cvalue, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days*24*60*60*1000);
+    document.cookie = `${name}=${cvalue};expires=${d.toUTCString()};path=/`;
+  }
+  function getCookie(name) {
+    const prefix = name + "=";
+    return document.cookie
+      .split("; ")
+      .find(row => row.startsWith(prefix))
+      ?.split("=")[1] || "";
+  }
+  function deleteAllCookies() {
+    document.cookie.split(";").forEach(cookie => {
+      const name = cookie.split("=")[0];
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+    });
+  }
 const d = new Date();
 document.getElementById("today").innerHTML = d.toDateString();
 
@@ -328,6 +348,7 @@ function reviewInput() {
    output += '</table>';
    document.getElementById("review-output").innerHTML = output;
 }
+
 function Reset() {
    console.log("Reset function triggered");
    alert("Reset function triggered");
