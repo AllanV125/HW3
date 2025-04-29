@@ -492,55 +492,65 @@ function getCookie(name) {
 }
 function deleteAllCookies() {
   document.cookie.split(';').forEach(c => {
-    const n = c.split('=')[0];
-    document.cookie = `${n}=;expires=Thu,01 Jan 1970 00:00:00 UTC;path=/`;
+    const n = c.split('=')[0].trim();
+    document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+    document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=`;
   });
 }
-
-// ─── Page init: date, First Name cookie, “Not X?”, Remember-Me ───
-document.getElementById('today').textContent = new Date().toDateString();
-
-// Prefill & save firstName
-const inputs = [{ id: 'fname', cookieName: 'firstName' }];
-inputs.forEach(i => {
-  const el = document.getElementById(i.id),
-        v  = getCookie(i.cookieName);
-  if (v) el.value = v;
-  el.addEventListener('input', () => {
-    if (document.getElementById('remember-me').checked) {
-      setCookie(i.cookieName, el.value);
-    }
-  });
-});
-
-// Welcome back / Not-X? flow
 const firstName = getCookie('firstName');
 if (firstName) {
   document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
-  document.getElementById('welcome2').innerHTML =
-    `<a href="#" id="new-user">Not ${firstName}? Start over.</a>`;
-  document.getElementById('new-user').addEventListener('click', e => {
+
+  const newUserLink = document.createElement('a');
+  newUserLink.href = '#';
+  newUserLink.id = 'new-user';
+  newUserLink.textContent = `Not ${firstName}? Start over.`;
+
+  const welcome2Element = document.getElementById('welcome2');
+  welcome2Element.textContent = '';         
+  welcome2Element.appendChild(newUserLink);
+
+  newUserLink.addEventListener('click', e => {
     e.preventDefault();
     deleteAllCookies();
     document.getElementById('signup-form').reset();
     location.reload();
   });
+
 } else {
   document.getElementById('welcome1').textContent = 'Hello, New User!';
 }
 
-// Remember-Me toggle
 document.getElementById('remember-me').addEventListener('change', function() {
   if (!this.checked) {
-    deleteAllCookies();
-    document.getElementById('signup-form').reset();
+    const confirmReset = confirm(
+      "Are you sure you want to reset the form? Unsaved data will be lost."
+    );
+    if (confirmReset) {
+      deleteAllCookies();
+      document.getElementById('signup-form').reset();
+    } else {
+      this.checked = true;
+    }
   } else {
-    const v = document.getElementById('fname').value.trim();
-    if (v) setCookie('firstName', v);
+    const fnameValue = document.getElementById('fname').value.trim();
+    if (fnameValue) {
+      setCookie('firstName', fnameValue);
+    }
   }
 });
 
-// Optional: live range slider
-document.getElementById('range').addEventListener('input', function() {
-  document.getElementById('range-slider').textContent = this.value;
-});
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+const rangeInput  = document.getElementById('range');
+const rangeOutput = document.getElementById('range-slider');
+
+rangeInput.addEventListener('input', debounce(function() {
+  rangeOutput.textContent = this.value;
+}, 300));
