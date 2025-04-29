@@ -30,6 +30,7 @@ header {
     color: #333;
     margin: 0;
     padding: 0;
+    padding-bottom: 80px;
    
  }
  form{
@@ -64,17 +65,18 @@ header {
     font-weight:bold;
     padding: 10px;
   }
-  footer {
-   position: flex: 1 1 auto;;
-   left: 0;
-   bottom: 0;
+ footer {
+   position: fixed;
+   bottom: 10px;
    width: 100%;
-   height: 60px;    
+   height: 60px;
    background-color: #00aaff;
+   color: #fff;
    text-align: center;
-   padding: 16px 0; 
+   padding: 16px 0;
    z-index: 1000;
  }
+ 
  #footer
  {
     text-align:center;
