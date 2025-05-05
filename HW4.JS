@@ -555,3 +555,13 @@ const rangeOutput = document.getElementById('range-slider');
 rangeInput.addEventListener('input', debounce(function() {
   rangeOutput.textContent = this.value;
 }, 300));
+document.getElementById('signup-form')
+  .addEventListener('submit', function(e) {
+    const remember = document.getElementById('remember-me').checked;
+    const name     = document.getElementById('fname').value.trim();
+    if (remember && name) {
+      setCookie('firstName', name);   
+    } else {
+      deleteAllCookies();             
+    }
+  });
