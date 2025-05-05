@@ -13,27 +13,23 @@ Description:Patients Registration Form
   <title>New Patient Registration Form Adara Medical Clinic</title>
 </head>
 <body>
-  <header>
-    <img src="Clinic Logo.jpg" 
-         alt="Adara Medical Clinic Logo" 
-         class="logo">
-    <h1 id="welcome1">Welcome New User</h1>
-    <a href="#" id="not-user-link">
-      Not Jake? Click here to start as a new user.
-    </a>
-  </header>
+  <div class="page-wrapper">
 
-              <td valign="top" align="left" width="30%">
-                  <img src="Clinic Logo.jpg" alt="Logo of Adara Medical Clinic" width="250" height="200" id="Logo" class="center"/>
-               </div>
-              </td>
-              <td>
-                  <h1> Adara Medical Clinic</h1>
-              </td>
-              <td valign="bottom" align="right" width="80%">
-                      <p> Today's Date: <span id="today"> </span></p>
-                  </td>
-          </tr>
+    <header>
+      <table width="100%">
+        <tr>
+          <td align="left" width="30%">
+            <img src="Clinic Logo.jpg" alt="Logo of Adara Medical Clinic" width="200" id="logo">
+          </td>
+          <td align="center">
+            <h1>Adara Medical Clinic</h1>
+          </td>
+          <td align="right" width="30%">
+            <p>Today's Date: <span id="today"></span></p>
+            <h2 id="welcome1">Welcome New User</h2>
+            <a href="#" id="not-user-link" style="display:none;">Not Jake? Start as a new user.</a>
+            </td>
+           
       </table>
       <div id="welcome-msg">
         <span id="welcome1"></span>
@@ -307,7 +303,7 @@ Description:Patients Registration Form
           id="remember-me"
           name="remember-me"
           checked
-        </td>
+        </td>>
       </form>
     
 </tr>    
