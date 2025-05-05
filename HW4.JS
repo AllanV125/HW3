@@ -369,7 +369,7 @@ function validateEverything() {
     if (!validatePwordMatch()) valid = false;
     if (!validateRadio()) valid = false;
     if (valid) {
-        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("submitBtn").disabled = true;
     } else {
         showAlert();
     }

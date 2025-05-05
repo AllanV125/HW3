@@ -16,19 +16,64 @@ Description:Patients Registration Form
   <div class="page-wrapper">
 
     <header>
-      <table width="100%">
-        <tr>
-          <td align="left" width="30%">
-            <img src="Clinic Logo.jpg" alt="Logo of Adara Medical Clinic" width="200" id="logo">
-          </td>
-          <td align="center">
-            <h1>Adara Medical Clinic</h1>
-          </td>
-          <td align="right" width="30%">
-            <p>Today's Date: <span id="today"></span></p>
-            <h2 id="welcome1">Welcome New User</h2>
-            <a href="#" id="not-user-link" style="display:none;">Not Jake? Start as a new user.</a>
-            </td>
+      <img src="Clinic Logo.jpg" id="logo" alt="Clinic Logo" width="200">
+      <h1>Adara Medical Clinic</h1>
+      <div class="header-actions">
+        <p>Today's Date: <span id="today"></span></p>
+        <h2 id="welcome1">Welcome New User</h2>
+        <a href="#" id="not-user-link" style="display:none;">Not Jake? Start as a new user.</a>
+      </div>
+    </header>
+    <script>
+      function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + days*24*60*60*1000);
+        document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/`;
+      }
+      function getCookie(name) {
+        const m = document.cookie.match(new RegExp('(^| )'+name+'=([^;]+)'));
+        return m ? decodeURIComponent(m[2]) : '';
+      }
+      function eraseCookie(name) {
+        document.cookie = name+'=; Max-Age=0; path=/';
+      }
+    
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('today').textContent = new Date().toLocaleDateString();
+    
+        const fnameInput = document.getElementById('fname');
+        const welcomeEl  = document.getElementById('welcome1');
+        const notLink    = document.getElementById('not-user-link');
+        const rememberMe = document.getElementById('remember-me');
+        const form       = document.getElementById('signup-form');
+    
+        const firstName = getCookie('firstName');
+        if (firstName) {
+          welcomeEl.textContent = `Welcome back, ${firstName}!`;
+          fnameInput.value      = firstName;
+          notLink.style.display = 'inline';
+        } else {
+          welcomeEl.textContent = 'Welcome New User';
+        }
+    
+        notLink.addEventListener('click', e => {
+          e.preventDefault();
+          eraseCookie('firstName');
+          location.reload();
+        });
+    
+        form.addEventListener('submit', () => {
+          const name = fnameInput.value.trim();
+          if (rememberMe.checked && name) {
+            setCookie('firstName', name, 2); 
+          } else {
+            eraseCookie('firstName');
+          }
+        });
+      });
+    </script>
+    
+    
            
       </table>
       <div id="welcome-msg">
