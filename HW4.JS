@@ -503,21 +503,6 @@ if (firstName) {
 
   document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
 
-const newUserLink = document.createElement('a');
-newUserLink.href = '#';
-newUserLink.id = 'new-user';
-newUserLink.textContent = `Not ${firstName}? Start over.`;
-  const welcome2Element = document.getElementById('welcome2');
-  welcome2Element.textContent = '';         
-  welcome2Element.appendChild(newUserLink);
-
-  newUserLink.addEventListener('click', e => {
-    e.preventDefault();
-    deleteAllCookies();
-    document.getElementById('signup-form').reset();
-    location.reload();
-  });
-
 } else {
   document.getElementById('welcome1').textContent = 'Hello, New User!';
 }
@@ -595,6 +580,19 @@ function setCookie(name, value, days) {
       welcomeEl.textContent = `Welcome back, ${firstName}!`;
       fnameInput.value      = firstName;
       notLink.style.display = 'inline';
+      notLink.addEventListener('click', e => {
+        e.preventDefault();
+        document.cookie = 'firstName=; max-age=0; path=/';
+        location.reload();
+  const notLink = document.getElementById('not-user-link');
+  notLink.addEventListener('click', e => {
+    e.preventDefault();
+    document.cookie = 'firstName=; max-age=0; path=/';
+    document.getElementById('signup-form').reset();
+    location.reload();
+  });
+
+      });      
     } else {
       welcomeEl.textContent = 'Welcome New User';
     }
