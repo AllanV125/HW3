@@ -499,6 +499,8 @@ function deleteAllCookies() {
 }
 const firstName = getCookie('firstName');
 if (firstName) {
+    document.getElementById('fname').value = firstName;
+
   document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
 
   const newUserLink = document.createElement('a');
