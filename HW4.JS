@@ -503,11 +503,10 @@ if (firstName) {
 
   document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
 
-  const newUserLink = document.createElement('a');
-  newUserLink.href = '#';
-  newUserLink.id = 'new-user';
-  newUserLink.textContent = `Not ${firstName}? Start over.`;
-
+const newUserLink = document.createElement('a');
+newUserLink.href = '#';
+newUserLink.id = 'new-user';
+newUserLink.textContent = `Not ${firstName}? Start over.`;
   const welcome2Element = document.getElementById('welcome2');
   welcome2Element.textContent = '';         
   welcome2Element.appendChild(newUserLink);
