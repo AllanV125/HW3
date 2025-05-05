@@ -543,7 +543,7 @@ document.getElementById('remember-me').addEventListener('change', function() {
 
 function debounce(func, delay) {
   let timeout;
-  return function(...args) {
+  return function (args) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), delay);
   };
@@ -565,3 +565,80 @@ document.getElementById('signup-form')
       deleteAllCookies();             
     }
   });
+    rangeInput.addEventListener('input', debounce(function() {
+        rangeOutput.textContent = this.value;
+      }, 300));
+    
+      
+      const COOKIE_DAYS = 2;
+      function setCookie(name, value, days = COOKIE_DAYS) {
+        const d = new Date();
+        d.setTime(d.getTime() + days * 24*60*60*1000);
+        document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+      }
+    
+      function getCookie(name) {
+        return document.cookie
+          .split('; ')
+          .find(r => r.startsWith(name + '='))
+          ?.split('=')[1] || '';
+      }
+    
+      function deleteAllCookies() {
+        document.cookie
+          .split(';')
+          .forEach(c => {
+            const n = c.split('=')[0].trim();
+            document.cookie = `${n}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
+          });
+      }    
+          const firstName = getCookie('firstName');
+      if (firstName) {
+        document.getElementById('fname').value = firstName;
+        document.getElementById('welcome1').textContent = `Welcome back, ${firstName}!`;
+    
+        const welcome2 = document.getElementById('welcome2');
+        welcome2.textContent = '';
+        const newUserLink = document.createElement('a');
+        newUserLink.href = '#';
+        newUserLink.id   = 'new-user';
+        newUserLink.textContent = `Not ${firstName}? Start over.`;
+        welcome2.appendChild(newUserLink);
+    
+        newUserLink.addEventListener('click', e => {
+          e.preventDefault();
+          deleteAllCookies();
+          document.getElementById('signup-form').reset();
+          location.reload();
+        });
+    
+      } else {
+        document.getElementById('welcome1').textContent = 'Hello, New User!';
+      }
+      document
+        .getElementById('signup-form')
+        .addEventListener('submit', function(e) {
+          const remember = document.getElementById('remember-me').checked;
+          const name = document.getElementById('fname').value.trim();
+          if (remember && name) {
+            setCookie('firstName', name);
+          } else {
+            deleteAllCookies();
+          }
+        });
+          document
+        .getElementById('remember-me')
+        .addEventListener('change', function() {
+          const name = document.getElementById('fname').value.trim();
+          if (this.checked) {
+            if (name) setCookie('firstName', name);
+          } else {
+            if (confirm('Clear saved name and reset form?')) {
+              deleteAllCookies();
+              document.getElementById('signup-form').reset();
+            } else {
+              this.checked = true;
+            }
+          }
+        });
+    
